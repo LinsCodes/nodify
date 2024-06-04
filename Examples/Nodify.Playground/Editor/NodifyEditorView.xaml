@@ -25,6 +25,12 @@
             <local:FlowToDirectionConverter x:Key="FlowToDirectionConverter" />
             <local:TestFlowNodeViewModel x:Key="TestFlowNodeViewModel" />
 
+            <LinearGradientBrush x:Key="AnimatedBrush" StartPoint="0 0" EndPoint="1 0">
+                <GradientStop Offset="0" Color="#6366f1" />
+                <GradientStop Offset="0.5" Color="#a855f7" />
+                <GradientStop Offset="1" Color="#ec4899" />
+            </LinearGradientBrush>
+            
             <GeometryDrawing
                 x:Key="SmallGridGeometry"
                 Brush="{DynamicResource GridLinesBrush}"
@@ -179,6 +185,8 @@
     <Grid>
         <nodify:NodifyEditor
             x:Name="Editor"
+            AllowDrop="True"
+            Drop="OnDropNode"
             AutoPanEdgeDistance="{Binding AutoPanningEdgeDistance, Source={x:Static local:EditorSettings.Instance}}"
             AutoPanSpeed="{Binding AutoPanningSpeed, Source={x:Static local:EditorSettings.Instance}}"
             BringIntoViewMaxDuration="{Binding BringIntoViewMaxDuration, Source={x:Static local:EditorSettings.Instance}}"
@@ -424,6 +432,41 @@
             Panel.ZIndex="-2"
             Background="{StaticResource LargeGridLinesDrawingBrush}"
             Visibility="{Binding ShowGridLines, Source={x:Static local:PlaygroundSettings.Instance}, Converter={shared:BooleanToVisibilityConverter}}" />
+
+        <Border
+            MinWidth="200"
+            MaxWidth="300"
+            Margin="10 40 10 10"
+            Padding="7"
+            HorizontalAlignment="Right"
+            BorderThickness="2"
+            CornerRadius="3">
+            <Border.Background>
+                <SolidColorBrush Opacity="0.7" Color="{DynamicResource BackgroundColor}" />
+            </Border.Background>
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding OperationsMenu.AvailableOperations}">
+                    <ItemsControl.ItemContainerStyle>
+                        <Style>
+                            <Setter Property="FrameworkElement.Margin" Value="5" />
+                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Left" />
+                            <Setter Property="FrameworkElement.Cursor" Value="Hand" />
+                            <Setter Property="FrameworkElement.ToolTip" Value="Drag and drop into the editor" />
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type local:FlowNodeViewModel}">
+                            <nodify:Node
+                                BorderBrush="{StaticResource AnimatedBrush}"
+                                BorderThickness="2"
+                                Header="{Binding Title}"
+                                MouseMove="OnNodeDrag">
+                            </nodify:Node>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
     </Grid>
 
 </UserControl>
