@@ -70,6 +70,10 @@
                             Content="COMMENT SELECTION"
                             ToolTip="Creates a comment node containing the selected nodes."
                             Style="{StaticResource HollowButton}" />
+                    <Button Command="{Binding GenerateOneNodeCommand}"
+                            Content="Gen Single Node"
+                            ToolTip="Generate Single Node."
+                            Style="{StaticResource HollowButton}" />
                 </StackPanel>
 
                 <Button Style="{StaticResource IconButton}"

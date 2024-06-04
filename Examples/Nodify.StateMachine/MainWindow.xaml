@@ -21,15 +21,38 @@
         <shared:BindingProxy x:Key="BlackboardProxy"
                              DataContext="{Binding Blackboard}" />
         <local:ConnectorOffsetConverter x:Key="ConnectorOffsetConverter" />
+        <GeometryDrawing x:Key="SmallGridGeometry"
+                        Geometry="M0,0 L0,1 0.03,1 0.03,0.03 1,0.03 1,0 Z"
+                        Brush="{DynamicResource ContrastBackgroundBrush}" />
+
+        <GeometryDrawing x:Key="LargeGridGeometry"
+                        Geometry="M0,0 L0,1 0.015,1 0.015,0.015 1,0.015 1,0 Z"
+                        Brush="{DynamicResource ContrastBackgroundBrush}" />
+
+        <DrawingBrush x:Key="SmallGridLinesDrawingBrush"
+                    TileMode="Tile"
+                    ViewportUnits="Absolute"
+                    Viewport="0 0 20 20"
+                    Transform="{Binding ViewportTransform, ElementName=Editor}"
+                    Drawing="{StaticResource SmallGridGeometry}" />
+
+        <DrawingBrush x:Key="LargeGridLinesDrawingBrush"
+                    TileMode="Tile"
+                    ViewportUnits="Absolute"
+                    Opacity="0.5"
+                    Viewport="0 0 100 100"
+                    Transform="{Binding ViewportTransform, ElementName=Editor}"
+                    Drawing="{StaticResource LargeGridGeometry}" />
     </Window.Resources>
 
-    <Grid>
+    <Grid Background="{DynamicResource BackgroundBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
         <nodify:NodifyEditor x:Name="Editor"
+                             Background="{StaticResource SmallGridLinesDrawingBrush}"
                              ItemsSource="{Binding States}"
                              SelectedItem="{Binding SelectedState}"
                              SelectedItems="{Binding SelectedStates}"
@@ -307,7 +330,8 @@
                   Background="{DynamicResource PanelBackgroundBrush}"
                   Padding="0 1 4 3"
                   IsExpanded="True"
-                  ExpandDirection="Left">
+                  ExpandDirection="Left"
+                 >
             <Expander.Style>
                 <Style TargetType="{x:Type Expander}"
                        BasedOn="{StaticResource {x:Type Expander}}">
@@ -714,5 +738,7 @@
                 </Grid>
             </Border>
         </Expander>
+
+       
     </Grid>
 </Window>

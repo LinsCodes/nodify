@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>net8-windows;net6-windows;net5-windows;netcoreapp3.1;net48;net472</TargetFrameworks>
+    <TargetFrameworks>net48;net472</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
@@ -18,11 +18,11 @@
     <PackageTags>wpf mvvm node-editor controls</PackageTags>
     <Version>5.2.0</Version>
     <PackageReleaseNotes>
-      > - Features:
-      >	  - Added Text to BaseConnection, allowing displaying of text on connections
-      >  	- Added Foreground, FontSize, FontWeight, FontStyle, FontStretch and FontFamily to BaseConnection, allowing styling the displaying text
-      > - Bugfixes:
-      >   - Fixed MouseCapture not being released when EnableStickyConnections is enabled and the PendingConnection is canceled by a key gesture
+      &gt; - Features:
+      &gt;	  - Added Text to BaseConnection, allowing displaying of text on connections
+      &gt;  	- Added Foreground, FontSize, FontWeight, FontStyle, FontStretch and FontFamily to BaseConnection, allowing styling the displaying text
+      &gt; - Bugfixes:
+      &gt;   - Fixed MouseCapture not being released when EnableStickyConnections is enabled and the PendingConnection is canceled by a key gesture
     </PackageReleaseNotes>
     <AssemblyOriginatorKeyFile>..\build\Nodify.snk</AssemblyOriginatorKeyFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>

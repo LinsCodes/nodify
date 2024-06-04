@@ -1,0 +1,47 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Nodify.Playground"
+    xmlns:nodify="https://miroiu.github.io/nodify"
+    xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared">
+
+
+    <DataTemplate DataType="{x:Type local:TestFlowNodeViewModel}">
+        <nodify:Node
+            Content="{Binding}"
+            Header="{Binding Title}"
+            Input="{Binding Input}"
+            Output="{Binding Output}">
+
+            <nodify:Node.InputConnectorTemplate>
+                <DataTemplate DataType="{x:Type local:TestInputConnectorViewModel}">
+                    <StackPanel Orientation="Horizontal">
+                        <nodify:NodeInput
+                            VerticalAlignment="Center"
+                            Anchor="{Binding Anchor, Mode=OneWayToSource}"
+                            ToolTip="{Binding PicPath}" />
+                        <TextBox
+                            MinWidth="100"
+                            MaxWidth="120"
+                            IsReadOnly="{Binding IsConnected, Converter={shared:BooleanToIsReadOnlyConverter Negate=False}}"
+                            Text="{Binding PicPath}"
+                            ToolTip="{Binding PicPath}" />
+                        <Button
+                            Command="{Binding SelectPicPathCommand}"
+                            Content="{StaticResource EditIcon}"
+                            Style="{StaticResource IconButton}"
+                            Visibility="{Binding IsConnected, Converter={shared:BooleanToVisibilityConverter Negate=True}}" />
+                    </StackPanel>
+                </DataTemplate>
+            </nodify:Node.InputConnectorTemplate>
+
+            <nodify:Node.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Image MaxWidth="200" Source="{Binding InputPicPathConnector.PicPath}" />
+                    </StackPanel>
+                </DataTemplate>
+            </nodify:Node.ContentTemplate>
+        </nodify:Node>
+    </DataTemplate>
+</ResourceDictionary>
