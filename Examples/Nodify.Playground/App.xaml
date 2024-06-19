@@ -1,18 +1,18 @@
 ﻿<Application
-    x:Class="Nodify.Playground.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    StartupUri="MainWindow.xaml">
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Nodify;component/Themes/Nodify.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Nodify.Shared;component/Themes/Icons.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Nodify.Shared;component/Themes/Nodify.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Nodify.Playground;component/Themes/Nodify.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Nodify.Playground;component/Themes/Styles/TestFlowNode.xaml" />
+	x:Class="Nodify.Playground.App"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	StartupUri="MainWindow.xaml">
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="pack://application:,,,/Nodify;component/Themes/Nodify.xaml" />
+				<ResourceDictionary Source="pack://application:,,,/Nodify.Shared;component/Themes/Icons.xaml" />
+				<ResourceDictionary Source="pack://application:,,,/Nodify.Shared;component/Themes/Nodify.xaml" />
+				<ResourceDictionary Source="pack://application:,,,/Nodify.Playground;component/Themes/Nodify.xaml" />
+				<ResourceDictionary Source="pack://application:,,,/Nodify.Playground;component/Themes/Styles/TestFlowNode.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Nodify.Playground;component/Themes/Styles/BrowserImageFlowNode.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Application.Resources>
+	</Application.Resources> 
 </Application>

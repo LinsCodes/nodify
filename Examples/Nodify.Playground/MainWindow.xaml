@@ -7,6 +7,7 @@
         xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared"
         xmlns:nodify="https://miroiu.github.io/nodify"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="MainWindow"
         Height="600"
         Width="1200">
@@ -108,7 +109,7 @@
                 </Style>
             </Expander.Style>
 
-            <ScrollViewer>
+            <ScrollViewer Visibility="Collapsed">
                 <Grid IsSharedSizeScope="True"
                       Width="330">
                     <Grid.RowDefinitions>

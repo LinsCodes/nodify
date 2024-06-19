@@ -30,7 +30,7 @@
                 <GradientStop Offset="0.5" Color="#a855f7" />
                 <GradientStop Offset="1" Color="#ec4899" />
             </LinearGradientBrush>
-            
+
             <GeometryDrawing
                 x:Key="SmallGridGeometry"
                 Brush="{DynamicResource GridLinesBrush}"
@@ -130,6 +130,16 @@
                 <nodify:LineConnection Style="{StaticResource ConnectionStyle}" />
             </DataTemplate>
 
+            <DataTemplate x:Key="PendingConnectionTemplate" DataType="{x:Type local:PendingConnectionViewModel}">
+                <nodify:PendingConnection
+                    CompletedCommand="{Binding DataContext.CreateConnectionCommand, RelativeSource={RelativeSource AncestorType={x:Type nodify:NodifyEditor}}}"
+                    IsVisible="{Binding IsVisible}"
+                    Source="{Binding Source, Mode=OneWayToSource}"
+                    StartedCommand="{Binding DataContext.StartConnectionCommand, RelativeSource={RelativeSource AncestorType={x:Type nodify:NodifyEditor}}}"
+                    Target="{Binding Target, Mode=OneWayToSource}"
+                    TargetAnchor="{Binding TargetLocation, Mode=OneWayToSource}" />
+            </DataTemplate>
+
             <ControlTemplate x:Key="SquareConnector" TargetType="Control">
                 <Rectangle
                     Width="14"
@@ -186,7 +196,6 @@
         <nodify:NodifyEditor
             x:Name="Editor"
             AllowDrop="True"
-            Drop="OnDropNode"
             AutoPanEdgeDistance="{Binding AutoPanningEdgeDistance, Source={x:Static local:EditorSettings.Instance}}"
             AutoPanSpeed="{Binding AutoPanningSpeed, Source={x:Static local:EditorSettings.Instance}}"
             BringIntoViewMaxDuration="{Binding BringIntoViewMaxDuration, Source={x:Static local:EditorSettings.Instance}}"
@@ -197,6 +206,7 @@
             DisableZooming="{Binding DisableZooming, Source={x:Static local:EditorSettings.Instance}}"
             DisconnectConnectorCommand="{Binding DisconnectConnectorCommand}"
             DisplayConnectionsOnTop="{Binding DisplayConnectionsOnTop, Source={x:Static local:EditorSettings.Instance}}"
+            Drop="OnDropNode"
             EnableRealtimeSelection="{Binding EnableRealtimeSelection, Source={x:Static local:EditorSettings.Instance}}"
             GridCellSize="{Binding GridSpacing, Source={x:Static local:EditorSettings.Instance}}"
             ItemsSource="{Binding Nodes}"
@@ -211,6 +221,7 @@
             <nodify:NodifyEditor.Style>
                 <Style BasedOn="{StaticResource {x:Type nodify:NodifyEditor}}" TargetType="{x:Type nodify:NodifyEditor}">
                     <Setter Property="ConnectionTemplate" Value="{StaticResource ConnectionTemplate}" />
+                    <Setter Property="PendingConnectionTemplate" Value="{StaticResource PendingConnectionTemplate}" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ShowGridLines, Source={x:Static local:PlaygroundSettings.Instance}}" Value="True">
                             <Setter Property="Background" Value="{StaticResource SmallGridLinesDrawingBrush}" />
@@ -231,7 +242,7 @@
             </nodify:NodifyEditor.InputBindings>
 
             <nodify:NodifyEditor.Resources>
-                <Style BasedOn="{StaticResource {x:Type nodify:PendingConnection}}" TargetType="{x:Type nodify:PendingConnection}">
+                <!--<Style BasedOn="{StaticResource {x:Type nodify:PendingConnection}}" TargetType="{x:Type nodify:PendingConnection}">
                     <Setter Property="CompletedCommand" Value="{Binding Graph.CreateConnectionCommand}" />
                     <Setter Property="Source" Value="{Binding Source, Mode=OneWayToSource}" />
                     <Setter Property="Target" Value="{Binding PreviewTarget, Mode=OneWayToSource}" />
@@ -291,7 +302,7 @@
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
-                </Style>
+                </Style>-->
 
                 <Style BasedOn="{StaticResource {x:Type nodify:Connector}}" TargetType="{x:Type nodify:Connector}">
                     <Setter Property="Anchor" Value="{Binding Anchor, Mode=OneWayToSource}" />
@@ -426,6 +437,15 @@
                     </Style.Triggers>
                 </Style>
             </nodify:NodifyEditor.ItemContainerStyle>
+
+
+
+
+            <CompositeCollection>
+                <nodify:DecoratorContainer DataContext="{Binding OperationsMenu}" Location="{Binding Location}">
+                    <local:NodesMenuView />
+                </nodify:DecoratorContainer>
+            </CompositeCollection>
         </nodify:NodifyEditor>
 
         <Grid
@@ -436,7 +456,7 @@
         <Border
             MinWidth="200"
             MaxWidth="300"
-            Margin="10 40 10 10"
+            Margin="10,40,10,10"
             Padding="7"
             HorizontalAlignment="Right"
             BorderThickness="2"
@@ -460,8 +480,7 @@
                                 BorderBrush="{StaticResource AnimatedBrush}"
                                 BorderThickness="2"
                                 Header="{Binding Title}"
-                                MouseMove="OnNodeDrag">
-                            </nodify:Node>
+                                MouseMove="OnNodeDrag" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

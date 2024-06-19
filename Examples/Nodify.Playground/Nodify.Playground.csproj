@@ -13,5 +13,8 @@
     <ProjectReference Include="..\..\Nodify\Nodify.csproj" />
     <ProjectReference Include="..\Nodify.Shared\Nodify.Shared.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
 
 </Project>
