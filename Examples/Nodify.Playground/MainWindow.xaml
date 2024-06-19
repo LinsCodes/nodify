@@ -42,22 +42,8 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal">
-                    <Button Command="{Binding GenerateRandomNodesCommand}"
-                            Content="GENERATE RANDOM NODES"
-                            ToolTip="Generate nodes using the specified settings."
-                            Style="{StaticResource HollowButton}" />
-                    <Button Command="{Binding PerformanceTestCommand}"
-                            Content="PERFORMANCE TEST"
-                            ToolTip="You will encounter rendering performance issues. Try disabling the connections to see the difference."
-                            Style="{StaticResource HollowButton}" />
-                    <Button Command="{Binding ToggleConnectionsCommand}"
-                            Content="CONNECT / DISCONNECT"
-                            ToolTip="Will add new connections if Connect Nodes is checked, otherwise it will disconnect nodes."
-                            Style="{StaticResource HollowButton}" />
-                    <Button Command="{Binding ResetCommand}"
-                            Content="RESET PLAYGROUND"
-                            ToolTip="Reset the Location, Zoom, Nodes and Connections."
-                            Style="{StaticResource HollowButton}" />
+                   
+                   
                     <Button Click="BringIntoView_Click"
                             Content="BRING INTO VIEW"
                             ToolTip="Bring a random node into view."
@@ -70,10 +56,6 @@
                     <Button Command="{Binding GraphViewModel.CommentSelectionCommand}"
                             Content="COMMENT SELECTION"
                             ToolTip="Creates a comment node containing the selected nodes."
-                            Style="{StaticResource HollowButton}" />
-                    <Button Command="{Binding GenerateOneNodeCommand}"
-                            Content="Gen Single Node"
-                            ToolTip="Generate Single Node."
                             Style="{StaticResource HollowButton}" />
                 </StackPanel>
 

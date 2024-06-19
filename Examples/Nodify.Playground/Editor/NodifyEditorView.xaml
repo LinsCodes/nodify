@@ -23,7 +23,6 @@
 
             <shared:RandomBrushConverter x:Key="RandomBrushConverter" />
             <local:FlowToDirectionConverter x:Key="FlowToDirectionConverter" />
-            <local:TestFlowNodeViewModel x:Key="TestFlowNodeViewModel" />
 
             <LinearGradientBrush x:Key="AnimatedBrush" StartPoint="0 0" EndPoint="1 0">
                 <GradientStop Offset="0" Color="#6366f1" />

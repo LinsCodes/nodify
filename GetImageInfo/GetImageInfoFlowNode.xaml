@@ -1,12 +1,12 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:Nodify.Playground"
+    xmlns:local="clr-namespace:GetImageInfo"
     xmlns:nodify="https://miroiu.github.io/nodify"
     xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared">
 
 
-    <DataTemplate DataType="{x:Type local:TestFlowNodeViewModel}">
+    <DataTemplate DataType="{x:Type local:GetImageInfoViewModel}">
         <nodify:Node
             Content="{Binding}"
             Header="{Binding Title}"
@@ -14,7 +14,7 @@
             Output="{Binding Output}">
 
             <nodify:Node.InputConnectorTemplate>
-                <DataTemplate DataType="{x:Type local:TestInputConnectorViewModel}">
+                <DataTemplate DataType="{x:Type local:GetImageInfoInputConnectorViewModel}">
                     <StackPanel Orientation="Horizontal">
                         <nodify:NodeInput
                             VerticalAlignment="Center"

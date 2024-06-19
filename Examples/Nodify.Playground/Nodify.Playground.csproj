@@ -16,5 +16,8 @@
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Themes\Styles\" />
+  </ItemGroup>
 
 </Project>
