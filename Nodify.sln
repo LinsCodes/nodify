@@ -24,13 +24,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{B3CCF1F5-6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestNodify2", "TestNodify2\TestNodify2.csproj", "{05A5E336-CE7A-4E6D-85B9-46D662C75098}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectDirPath", "WpfApp1\SelectDirPath.csproj", "{307BE14E-3F7D-44C1-ADA8-04EBDE1E1007}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelectDirPath", "NodePlugins\WpfApp1\SelectDirPath.csproj", "{307BE14E-3F7D-44C1-ADA8-04EBDE1E1007}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{E9026B23-90BD-4054-8134-589D8D964475}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrowserImageFlowNode", "BrowserImageFlowNode\BrowserImageFlowNode.csproj", "{86AC0EB8-CCBF-4CAD-82EC-34C62068B2DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrowserImageFlowNode", "NodePlugins\BrowserImageFlowNode\BrowserImageFlowNode.csproj", "{86AC0EB8-CCBF-4CAD-82EC-34C62068B2DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetImageInfo", "GetImageInfo\GetImageInfo.csproj", "{9ECBFA09-EBC8-46B9-9F20-D8E7C30E3C1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetImageInfo", "NodePlugins\GetImageInfo\GetImageInfo.csproj", "{9ECBFA09-EBC8-46B9-9F20-D8E7C30E3C1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
