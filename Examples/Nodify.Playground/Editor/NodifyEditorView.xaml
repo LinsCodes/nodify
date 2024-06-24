@@ -413,9 +413,23 @@
 
                 <DataTemplate DataType="{x:Type local:FlowNodeViewModel}">
                     <nodify:Node
-                        Header="{Binding Title}"
+                        Header="{Binding}"
                         Input="{Binding Input}"
-                        Output="{Binding Output}" />
+                        Output="{Binding Output}">
+
+                        <nodify:Node.HeaderTemplate>
+                            <DataTemplate DataType="{x:Type local:FlowNodeViewModel}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock MinWidth="30" Text="{Binding Title}" />
+                                    <Button
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding ExecuteCommand}"
+                                        Content="{StaticResource UnpauseIcon}"
+                                        Style="{StaticResource IconButton}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </nodify:Node.HeaderTemplate>
+                    </nodify:Node>
                 </DataTemplate>
             </nodify:NodifyEditor.Resources>
 
@@ -457,7 +471,7 @@
             MaxWidth="300"
             Margin="10,40,10,10"
             Padding="7"
-            HorizontalAlignment="Right"
+            HorizontalAlignment="Left"
             BorderThickness="2"
             CornerRadius="3">
             <Border.Background>
@@ -484,6 +498,57 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
+        </Border>
+
+        <!--  TOOLBAR  -->
+        <Border
+            Grid.Column="1"
+            Margin="0,50,0,10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Background="{DynamicResource PanelBackgroundBrush}"
+            BorderThickness="0,0,0,1"
+            CornerRadius="2">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding PauseCommand}">
+                    <Button.Style>
+                        <Style BasedOn="{StaticResource IconButton}" TargetType="{x:Type Button}">
+                            <Setter Property="Content" Value="{StaticResource PauseIcon}" />
+                            <Setter Property="ToolTip" Value="Pause" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding RunnerState}" Value="Stopped">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding RunnerState}" Value="Paused">
+                                    <Setter Property="Content" Value="{StaticResource UnpauseIcon}" />
+                                    <Setter Property="ToolTip" Value="Continue" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <Button Command="{Binding RunCommand}" Style="{StaticResource IconButton}">
+                    <StackPanel Orientation="Horizontal">
+                        <ContentPresenter Margin="0,0,4,0" DataContext="{Binding}">
+                            <ContentPresenter.Style>
+                                <Style TargetType="{x:Type ContentPresenter}">
+                                    <Setter Property="Content" Value="{StaticResource StopIcon}" />
+                                    <Setter Property="ToolTip" Value="Stop" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RunnerState}" Value="Stopped">
+                                            <Setter Property="Content" Value="{StaticResource RunIcon}" />
+                                            <Setter Property="ToolTip" Value="Run" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentPresenter.Style>
+                        </ContentPresenter>
+                        <TextBlock Text="{Binding Name}" />
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
         </Border>
     </Grid>
 

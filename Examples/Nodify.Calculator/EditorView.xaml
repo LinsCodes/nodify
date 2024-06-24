@@ -203,8 +203,8 @@
 
                 <DataTemplate DataType="{x:Type local:ExpressionOperationViewModel}">
                     <nodify:Node
-                        Header="{Binding Title}"
                         Content="{Binding}"
+                        Header="{Binding Title}"
                         Input="{Binding Input}"
                         Output="{Binding Output, Converter={StaticResource ItemToListConverter}}">
                         <nodify:Node.ContentTemplate>
@@ -400,14 +400,7 @@
                                 BorderBrush="{StaticResource AnimatedBrush}"
                                 BorderThickness="2"
                                 Header="{Binding Title}"
-                                Input="{Binding Input}"
-                                MouseMove="OnNodeDrag">
-                                <nodify:Node.Output>
-                                    <CompositeCollection>
-                                        <sys:String>Output</sys:String>
-                                    </CompositeCollection>
-                                </nodify:Node.Output>
-                            </nodify:Node>
+                                MouseMove="OnNodeDrag" />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

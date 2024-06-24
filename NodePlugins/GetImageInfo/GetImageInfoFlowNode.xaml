@@ -9,10 +9,25 @@
     <DataTemplate DataType="{x:Type local:GetImageInfoViewModel}">
         <nodify:Node
             Content="{Binding}"
-            Header="{Binding Title}"
+            Header="{Binding }"
             Input="{Binding Input}"
-            Output="{Binding Output}">
-
+            Output="{Binding Output}" Footer="Footor">
+            <nodify:Node.HeaderTemplate>
+                <DataTemplate DataType="{x:Type local:GetImageInfoViewModel}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            MinWidth="30"
+                            VerticalAlignment="Center"
+                            Text="{Binding Title}" />
+                        <Button
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="Right"
+                            Command="{Binding ExecuteCommand}"
+                            Content="{StaticResource UnpauseIcon}"
+                            Style="{StaticResource IconButton}" />
+                    </StackPanel>
+                </DataTemplate>
+            </nodify:Node.HeaderTemplate>
             <nodify:Node.InputConnectorTemplate>
                 <DataTemplate DataType="{x:Type local:GetImageInfoInputConnectorViewModel}">
                     <StackPanel Orientation="Horizontal">

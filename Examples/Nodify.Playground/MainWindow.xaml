@@ -42,8 +42,6 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal">
-                   
-                   
                     <Button Click="BringIntoView_Click"
                             Content="BRING INTO VIEW"
                             ToolTip="Bring a random node into view."
@@ -68,7 +66,7 @@
         </Border>
 
         <!--SETTINGS-->
-        <Expander Grid.Row="1"
+        <Expander Grid.Row="1"  Visibility="Collapsed"
                   HorizontalContentAlignment="Left"
                   VerticalContentAlignment="Center"
                   HorizontalAlignment="Left"
@@ -91,7 +89,7 @@
                 </Style>
             </Expander.Style>
 
-            <ScrollViewer Visibility="Collapsed">
+            <ScrollViewer >
                 <Grid IsSharedSizeScope="True"
                       Width="330">
                     <Grid.RowDefinitions>

@@ -15,17 +15,17 @@
 
             <nodify:Node.ContentTemplate>
                 <DataTemplate>
-                    <StackPanel >
+                    <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBox
-                            MinWidth="100"
-                            MaxWidth="120"
-                            Text="{Binding PicPath}"
-                            ToolTip="{Binding PicPath}" />
+                                MinWidth="100"
+                                MaxWidth="120"
+                                Text="{Binding PicPath}"
+                                ToolTip="{Binding PicPath}" />
                             <Button
-                            Command="{Binding SelectPicPathCommand}"
-                            Content="{StaticResource EditIcon}"
-                            Style="{StaticResource IconButton}" />
+                                Command="{Binding SelectPicPathCommand}"
+                                Content="{StaticResource EditIcon}"
+                                Style="{StaticResource IconButton}" />
                         </StackPanel>
                         <Image MaxWidth="200" Source="{Binding PicPath}" />
                     </StackPanel>

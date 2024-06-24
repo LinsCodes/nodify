@@ -10,14 +10,17 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Themes\Styles\**" />
+    <EmbeddedResource Remove="Themes\Styles\**" />
+    <None Remove="Themes\Styles\**" />
+    <Page Remove="Themes\Styles\**" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Nodify\Nodify.csproj" />
     <ProjectReference Include="..\Nodify.Shared\Nodify.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Themes\Styles\" />
   </ItemGroup>
 
 </Project>
