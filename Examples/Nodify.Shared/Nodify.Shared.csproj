@@ -10,7 +10,23 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Resources\Error.png" />
+    <None Remove="Resources\Loading.gif" />
+    <None Remove="Resources\OK.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Error.png" />
+    <Resource Include="Resources\Loading.gif" />
+    <Resource Include="Resources\OK.gif" />
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="Themes\Controls.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Themes\FlowNodeHeaderTemplate.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Themes\Generic.xaml">

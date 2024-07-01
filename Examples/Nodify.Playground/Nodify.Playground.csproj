@@ -16,11 +16,21 @@
     <Page Remove="Themes\Styles\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Loading.gif" />
+    <None Remove="LoadingDone.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Nodify\Nodify.csproj" />
     <ProjectReference Include="..\Nodify.Shared\Nodify.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 
 </Project>

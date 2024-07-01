@@ -9,10 +9,12 @@
     <DataTemplate DataType="{x:Type local:BrowserImageFlowNodeViewModel}">
         <nodify:Node
             Content="{Binding}"
-            Header="{Binding Title}"
+            Header="{Binding }"
             Input="{Binding Input}"
             Output="{Binding Output}">
-
+            <nodify:Node.HeaderTemplate>
+                <StaticResource ResourceKey="SharedHeaderTemplate" />
+            </nodify:Node.HeaderTemplate>
             <nodify:Node.ContentTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -27,7 +29,7 @@
                                 Content="{StaticResource EditIcon}"
                                 Style="{StaticResource IconButton}" />
                         </StackPanel>
-                        <Image MaxWidth="200" Source="{Binding PicPath}" />
+                        <Image MaxWidth="200" Source="{Binding PicPath}"/>
                     </StackPanel>
                 </DataTemplate>
             </nodify:Node.ContentTemplate>
