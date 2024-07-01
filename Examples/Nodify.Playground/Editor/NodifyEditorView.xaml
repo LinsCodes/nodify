@@ -13,15 +13,11 @@
     Background="{DynamicResource NodifyEditor.BackgroundBrush}"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <local:NodifyEditorViewModel />
-    </UserControl.DataContext>
+
 
     <UserControl.Resources>
-
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries />
-
             <shared:RandomBrushConverter x:Key="RandomBrushConverter" />
             <local:FlowToDirectionConverter x:Key="FlowToDirectionConverter" />
 
@@ -201,6 +197,7 @@
             BringIntoViewMaxDuration="{Binding BringIntoViewMaxDuration, Source={x:Static local:EditorSettings.Instance}}"
             BringIntoViewSpeed="{Binding BringIntoViewSpeed, Source={x:Static local:EditorSettings.Instance}}"
             Connections="{Binding Connections}"
+            DataContext="{Binding}"
             DisableAutoPanning="{Binding DisableAutoPanning, Source={x:Static local:EditorSettings.Instance}}"
             DisablePanning="{Binding DisablePanning, Source={x:Static local:EditorSettings.Instance}}"
             DisableZooming="{Binding DisableZooming, Source={x:Static local:EditorSettings.Instance}}"
@@ -446,50 +443,18 @@
             Background="{StaticResource LargeGridLinesDrawingBrush}"
             Visibility="{Binding ShowGridLines, Source={x:Static local:PlaygroundSettings.Instance}, Converter={shared:BooleanToVisibilityConverter}}" />
 
-        <Border
-            MinWidth="200"
-            MaxWidth="300"
-            Margin="10,40,10,10"
-            Padding="7"
-            HorizontalAlignment="Left"
-            BorderThickness="2"
-            CornerRadius="3">
-            <Border.Background>
-                <SolidColorBrush Opacity="0.7" Color="{DynamicResource BackgroundColor}" />
-            </Border.Background>
-            <ScrollViewer>
-                <ItemsControl ItemsSource="{Binding OperationsMenu.AvailableOperations}">
-                    <ItemsControl.ItemContainerStyle>
-                        <Style>
-                            <Setter Property="FrameworkElement.Margin" Value="5" />
-                            <Setter Property="FrameworkElement.HorizontalAlignment" Value="Left" />
-                            <Setter Property="FrameworkElement.Cursor" Value="Hand" />
-                            <Setter Property="FrameworkElement.ToolTip" Value="Drag and drop into the editor" />
-                        </Style>
-                    </ItemsControl.ItemContainerStyle>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate DataType="{x:Type local:FlowNodeViewModel}">
-                            <nodify:Node
-                                BorderBrush="{StaticResource AnimatedBrush}"
-                                BorderThickness="2"
-                                Header="{Binding Title}"
-                                MouseMove="OnNodeDrag" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </Border>
+
 
         <!--  TOOLBAR  -->
-        <Border
+        <Border DataContext="{Binding}"
             Grid.Column="1"
-            Margin="0,50,0,10"
+            Margin="0,5,0,5"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Background="{DynamicResource PanelBackgroundBrush}"
             BorderThickness="0,0,0,1"
             CornerRadius="2">
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal" >
                 <Button Command="{Binding PauseCommand}">
                     <Button.Style>
                         <Style BasedOn="{StaticResource IconButton}" TargetType="{x:Type Button}">
@@ -510,7 +475,7 @@
 
                 <Button Command="{Binding RunCommand}" Style="{StaticResource IconButton}">
                     <StackPanel Orientation="Horizontal">
-                        <ContentPresenter Margin="0,0,4,0" DataContext="{Binding}">
+                        <ContentPresenter Margin="0,0,4,0" >
                             <ContentPresenter.Style>
                                 <Style TargetType="{x:Type ContentPresenter}">
                                     <Setter Property="Content" Value="{StaticResource StopIcon}" />
@@ -524,7 +489,7 @@
                                 </Style>
                             </ContentPresenter.Style>
                         </ContentPresenter>
-                        <TextBlock Text="{Binding Name}" />
+                        <TextBlock Text="{Binding Title}" />
                     </StackPanel>
                 </Button>
 
