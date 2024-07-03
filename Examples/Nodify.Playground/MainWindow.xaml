@@ -271,7 +271,7 @@
                             </Style>
                         </ItemsControl.ItemContainerStyle>
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type local:FlowNodeViewModel}">
+                            <DataTemplate DataType="{x:Type local:NodeInfoViewModel}">
                                 <nodify:Node
                                     BorderBrush="{StaticResource AnimatedBrush}"
                                     BorderThickness="2"

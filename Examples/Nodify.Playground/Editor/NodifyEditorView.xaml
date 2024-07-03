@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:nodify="https://miroiu.github.io/nodify"
     xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared"
+    d:DataContext="{d:DesignInstance Type=local:NodifyEditorViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
     Background="{DynamicResource NodifyEditor.BackgroundBrush}"
@@ -446,15 +447,16 @@
 
 
         <!--  TOOLBAR  -->
-        <Border DataContext="{Binding}"
+        <Border
             Grid.Column="1"
             Margin="0,5,0,5"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Background="{DynamicResource PanelBackgroundBrush}"
             BorderThickness="0,0,0,1"
-            CornerRadius="2">
-            <StackPanel Orientation="Horizontal" >
+            CornerRadius="2"
+            DataContext="{Binding}">
+            <StackPanel Orientation="Horizontal">
                 <Button Command="{Binding PauseCommand}">
                     <Button.Style>
                         <Style BasedOn="{StaticResource IconButton}" TargetType="{x:Type Button}">
@@ -475,7 +477,7 @@
 
                 <Button Command="{Binding RunCommand}" Style="{StaticResource IconButton}">
                     <StackPanel Orientation="Horizontal">
-                        <ContentPresenter Margin="0,0,4,0" >
+                        <ContentPresenter Margin="0,0,4,0">
                             <ContentPresenter.Style>
                                 <Style TargetType="{x:Type ContentPresenter}">
                                     <Setter Property="Content" Value="{StaticResource StopIcon}" />

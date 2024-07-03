@@ -32,7 +32,7 @@
 
             <ItemsControl Grid.Row="1" ItemsSource="{Binding AvailableOperations}">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type local:FlowNodeViewModel}">
+                    <DataTemplate DataType="{x:Type local:NodeInfoViewModel}">
                         <Button
                             Padding="3"
                             HorizontalContentAlignment="Left"
