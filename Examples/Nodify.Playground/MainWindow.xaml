@@ -11,6 +11,7 @@
     Width="1200"
     Height="600"
     Background="{DynamicResource NodifyEditor.BackgroundBrush}"
+    Foreground="{DynamicResource ForegroundBrush}"
     Loaded="Window_Loaded"
     mc:Ignorable="d">
 
@@ -58,7 +59,7 @@
                         ToolTip="Bring a random node into view." />
                     <Button
                         Command="{x:Static nodify:EditorCommands.FitToScreen}"
-                        CommandTarget="{Binding EditorInstance, ElementName=EditorView}"
+                        CommandTarget="{Binding EditorInstance, ElementName=EditorsTabControl.SelectedItem}"
                         Content="FIT TO SCREEN"
                         Style="{StaticResource HollowButton}"
                         ToolTip="Scales the viewport to fit all nodes if that's possible." />
@@ -72,12 +73,6 @@
                         Content="Deploy"
                         Style="{StaticResource HollowButton}"
                         ToolTip="Deploys the modified nodes" />
-
-                    <Button
-                        Command="{Binding AddEditorCommand}"
-                        Content="Add Editor"
-                        Style="{StaticResource HollowButton}"
-                        ToolTip="Add New Editor" />
                 </StackPanel>
 
                 <Button
@@ -246,7 +241,7 @@
                 SelectedItem="{Binding SelectedEditor}">
                 <shared:TabControlEx.ItemContainerStyle>
                     <Style BasedOn="{StaticResource {x:Type shared:TabItemEx}}" TargetType="{x:Type shared:TabItemEx}">
-                        <Setter Property="Header" Value="{Binding Title}" />
+                        <Setter Property="Header" Value="{Binding Title,Mode=TwoWay}"  />
                         <Setter Property="CloseTabCommand" Value="{Binding DataContext.CloseEditorCommand, Source={StaticResource Proxy}}" />
                         <Setter Property="CloseTabCommandParameter" Value="{Binding Id}" />
                     </Style>
