@@ -14,12 +14,11 @@
     Background="{DynamicResource NodifyEditor.BackgroundBrush}"
     mc:Ignorable="d">
 
-
-
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries />
             <shared:RandomBrushConverter x:Key="RandomBrushConverter" />
+            <shared:ItemToListConverter x:Key="ItemToListConverter" />
             <local:FlowToDirectionConverter x:Key="FlowToDirectionConverter" />
 
             <LinearGradientBrush x:Key="AnimatedBrush" StartPoint="0 0" EndPoint="1 0">
@@ -396,8 +395,119 @@
                     <Setter Property="IsConnected" Value="{Binding IsConnected}" />
                 </Style>
 
+                <DataTemplate DataType="{x:Type local:FlowNodeViewModel}">
+                    <nodify:Node
+                        Header="{Binding Title}"
+                        Input="{Binding Input}"
+                        Output="{Binding Output}" />
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type local:SubWorkflowViewModel}">
+                    <DataTemplate.Resources>
+                        <Style BasedOn="{StaticResource {x:Type nodify:NodeOutput}}" TargetType="{x:Type nodify:NodeOutput}">
+                            <Setter Property="Header" Value="{Binding}" />
+                            <Setter Property="IsConnected" Value="{Binding IsConnected}" />
+                            <Setter Property="Anchor" Value="{Binding Anchor, Mode=OneWayToSource}" />
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate DataType="{x:Type local:ConnectorViewModel}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox IsEnabled="False" Text="{Binding Value}" />
+                                            <TextBlock Margin="5,0,0,0" Text="{Binding Title}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataTemplate.Resources>
+                    <nodify:Node
+                        Footer="{Binding}"
+                        Header="{Binding}"
+                        Input="{Binding Input}"
+                        Output="{Binding Output}"
+                        ToolTip="Double click to expand">
+                        <nodify:Node.HeaderTemplate>
+                            <StaticResource ResourceKey="SharedHeaderTemplate" />
+                        </nodify:Node.HeaderTemplate>
+                        <nodify:Node.FooterTemplate>
+                            <StaticResource ResourceKey="SharedFooterTemplate" />
+                        </nodify:Node.FooterTemplate>
+
+                        <nodify:Node.InputBindings>
+                            <MouseBinding
+                                Command="{Binding DataContext.OpenEditorCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                CommandParameter="{Binding}"
+                                Gesture="LeftDoubleClick" />
+                        </nodify:Node.InputBindings>
 
 
+                    </nodify:Node>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type local:SubWorkflowInputNodeViewModel}">
+                    <DataTemplate.Resources>
+                        <Style BasedOn="{StaticResource {x:Type nodify:NodeOutput}}" TargetType="{x:Type nodify:NodeOutput}">
+                            <Setter Property="Header" Value="{Binding}" />
+                            <Setter Property="IsConnected" Value="{Binding IsConnected}" />
+                            <Setter Property="Anchor" Value="{Binding Anchor, Mode=OneWayToSource}" />
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate DataType="{x:Type local:ConnectorViewModel}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox IsEnabled="False" Text="{Binding Value}" />
+                                            <TextBlock Margin="5,0,0,0" Text="{Binding Title}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataTemplate.Resources>
+                    <nodify:Node Header="{Binding Title}" Output="{Binding Output}">
+                        <StackPanel>
+                            <Button
+                                Command="{Binding AddOutputCommand}"
+                                Content="{StaticResource PlusIcon}"
+                                Style="{StaticResource IconButton}" />
+                            <Button
+                                Command="{Binding RemoveOutputCommand}"
+                                Content="{StaticResource RemoveKeyIcon}"
+                                Style="{StaticResource IconButton}" />
+                        </StackPanel>
+                    </nodify:Node>
+                </DataTemplate>
+
+
+                <DataTemplate DataType="{x:Type local:SubWorkflowOutputNodeViewModel}">
+                    <DataTemplate.Resources>
+                        <Style BasedOn="{StaticResource {x:Type nodify:NodeInput}}" TargetType="{x:Type nodify:NodeInput}">
+                            <Setter Property="Header" Value="{Binding}" />
+                            <Setter Property="IsConnected" Value="{Binding IsConnected}" />
+                            <Setter Property="Anchor" Value="{Binding Anchor, Mode=OneWayToSource}" />
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate DataType="{x:Type local:ConnectorViewModel}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox IsEnabled="False" Text="{Binding Value}" />
+                                            <TextBlock Margin="5,0,0,0" Text="{Binding Title}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataTemplate.Resources>
+                    <nodify:Node Header="{Binding Title}" Input="{Binding Input}">
+                        <StackPanel>
+                            <Button
+                                Command="{Binding AddInputCommand}"
+                                Content="{StaticResource PlusIcon}"
+                                Style="{StaticResource IconButton}" />
+                            <Button
+                                Command="{Binding RemoveInputCommand}"
+                                Content="{StaticResource RemoveKeyIcon}"
+                                Style="{StaticResource IconButton}" />
+                        </StackPanel>
+                    </nodify:Node>
+                </DataTemplate>
 
                 <DataTemplate DataType="{x:Type local:KnotNodeViewModel}">
                     <nodify:KnotNode Content="{Binding Connector}" />
