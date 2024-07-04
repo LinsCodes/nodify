@@ -1,0 +1,38 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:DelayNode"
+    xmlns:nodify="https://miroiu.github.io/nodify"
+    xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared">
+
+
+    <DataTemplate DataType="{x:Type local:DelayNodeViewModel}">
+        <nodify:Node
+            Content="{Binding}"
+            Footer="{Binding}"
+            Header="{Binding}"
+            Input="{Binding Input}"
+            Output="{Binding Output}">
+            <nodify:Node.HeaderTemplate>
+                <StaticResource ResourceKey="SharedHeaderTemplate" />
+            </nodify:Node.HeaderTemplate>
+            <nodify:Node.FooterTemplate>
+                <StaticResource ResourceKey="SharedFooterTemplate" />
+            </nodify:Node.FooterTemplate>
+            <nodify:Node.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox
+                                MinWidth="100"
+                                MaxWidth="120"
+                                Text="{Binding DelayTime}"
+                                ToolTip="{Binding DelayTime, StringFormat={}{0}ms}" />
+                            <TextBlock Text="ms" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </nodify:Node.ContentTemplate>
+        </nodify:Node>
+    </DataTemplate>
+</ResourceDictionary>
