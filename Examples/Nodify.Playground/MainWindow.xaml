@@ -68,19 +68,31 @@
                         Content="COMMENT SELECTION"
                         Style="{StaticResource HollowButton}"
                         ToolTip="Creates a comment node containing the selected nodes." />
+
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
                     <Button
                         Command="{Binding CurrentEditorViewModel.DeployCommand}"
                         Content="Deploy"
                         Style="{StaticResource HollowButton}"
                         ToolTip="Deploys the modified nodes" />
-                </StackPanel>
-
-                <Button
+                    <Button
+                        Command="{Binding CurrentEditorViewModel.SaveWorkflowCommand}"
+                        Content="Save"
+                        Style="{StaticResource HollowButton}"
+                        ToolTip="Save the Workflow" />
+                    <Button
+                        Command="{Binding CurrentEditorViewModel.LoadWorkflowCommand}"
+                        Content="Load"
+                        Style="{StaticResource HollowButton}"
+                        ToolTip="Load the Workflow" />
+                    <Button
                     Grid.Column="1"
                     Command="{Binding Source={x:Static shared:ThemeManager.SetNextThemeCommand}}"
                     Content="{StaticResource ThemeIcon}"
                     Style="{StaticResource IconButton}"
                     ToolTip="Change theme" />
+                </StackPanel>
             </Grid>
         </Border>
 
@@ -241,7 +253,7 @@
                 SelectedItem="{Binding SelectedEditor}">
                 <shared:TabControlEx.ItemContainerStyle>
                     <Style BasedOn="{StaticResource {x:Type shared:TabItemEx}}" TargetType="{x:Type shared:TabItemEx}">
-                        <Setter Property="Header" Value="{Binding Title,Mode=TwoWay}"  />
+                        <Setter Property="Header" Value="{Binding Title, Mode=TwoWay}" />
                         <Setter Property="CloseTabCommand" Value="{Binding DataContext.CloseEditorCommand, Source={StaticResource Proxy}}" />
                         <Setter Property="CloseTabCommandParameter" Value="{Binding Id}" />
                     </Style>
