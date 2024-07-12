@@ -77,12 +77,12 @@
                         Style="{StaticResource HollowButton}"
                         ToolTip="Deploys the modified nodes" />
                     <Button
-                        Command="{Binding CurrentEditorViewModel.SaveWorkflowCommand}"
+                        Command="{Binding SaveWorkflowCommand}"
                         Content="Save"
                         Style="{StaticResource HollowButton}"
                         ToolTip="Save the Workflow" />
                     <Button
-                        Command="{Binding CurrentEditorViewModel.LoadWorkflowCommand}"
+                        Command="{Binding LoadWorkflowCommand}"
                         Content="Load"
                         Style="{StaticResource HollowButton}"
                         ToolTip="Load the Workflow" />
@@ -283,7 +283,7 @@
                             </Style>
                         </ItemsControl.ItemContainerStyle>
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type local:NodeInfoViewModel}">
+                            <DataTemplate DataType="{x:Type local:NodeInfo}">
                                 <nodify:Node
                                     BorderBrush="{StaticResource AnimatedBrush}"
                                     BorderThickness="2"
