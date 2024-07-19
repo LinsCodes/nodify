@@ -27,12 +27,6 @@
                             VerticalAlignment="Center"
                             Anchor="{Binding Anchor, Mode=OneWayToSource}"
                             ToolTip="{Binding PicPath}" />
-                        <TextBox
-                            MinWidth="100"
-                            MaxWidth="120"
-                            IsReadOnly="{Binding IsConnected, Converter={shared:BooleanToIsReadOnlyConverter Negate=False}}"
-                            Text="{Binding PicPath}"
-                            ToolTip="{Binding PicPath}" />
                         <Button
                             Command="{Binding SelectPicPathCommand}"
                             Content="{StaticResource EditIcon}"

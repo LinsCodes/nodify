@@ -58,19 +58,26 @@
                             <!--  Body  -->
                             <Grid Grid.Row="1">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
+                                <DockPanel Grid.Row="0">
+                                    <!--  Data IN  -->
+                                    <ItemsControl
+                                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                        HorizontalContentAlignment="Left"
+                                        Focusable="False"
+                                        ItemTemplate="{TemplateBinding InputConnectorTemplate}"
+                                        ItemsSource="{TemplateBinding Input}" />
 
-                                <!--  Data IN  -->
-                                <ItemsControl
-                                    Grid.Row="2"
-                                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                    Focusable="False"
-                                    ItemTemplate="{TemplateBinding InputConnectorTemplate}"
-                                    ItemsSource="{TemplateBinding Input}" />
-
+                                    <!--  Data OUT  -->
+                                    <ItemsControl
+                                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                                        HorizontalContentAlignment="Right"
+                                        Focusable="False"
+                                        ItemTemplate="{TemplateBinding OutputConnectorTemplate}"
+                                        ItemsSource="{TemplateBinding Output}" />
+                                </DockPanel>
                                 <!--  Content  -->
                                 <Border
                                     Grid.Row="1"
@@ -79,15 +86,6 @@
                                     Background="{TemplateBinding ContentBrush}">
                                     <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                                 </Border>
-
-                                <!--  Data OUT  -->
-                                <ItemsControl
-                                    Grid.Row="0"
-                                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                                    HorizontalContentAlignment="Right"
-                                    Focusable="False"
-                                    ItemTemplate="{TemplateBinding OutputConnectorTemplate}"
-                                    ItemsSource="{TemplateBinding Output}" />
                             </Grid>
 
                             <!--  Footer  -->

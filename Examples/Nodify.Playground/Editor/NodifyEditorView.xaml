@@ -8,6 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:nodify="https://miroiu.github.io/nodify"
     xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:sysNodes="clr-namespace:Nodify.Playground.Nodes"
     d:DataContext="{d:DesignInstance Type=local:NodifyEditorViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -20,6 +22,15 @@
             <shared:RandomBrushConverter x:Key="RandomBrushConverter" />
             <shared:ItemToListConverter x:Key="ItemToListConverter" />
             <local:FlowToDirectionConverter x:Key="FlowToDirectionConverter" />
+
+            <ObjectDataProvider
+                x:Key="SwitchRuleTypeEnum"
+                MethodName="GetValues"
+                ObjectType="{x:Type sys:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type TypeName="sysNodes:SwitchRuleType" />
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
 
             <LinearGradientBrush x:Key="AnimatedBrush" StartPoint="0 0" EndPoint="1 0">
                 <GradientStop Offset="0" Color="#6366f1" />
@@ -185,6 +196,29 @@
                     </EventTrigger>
                 </Style.Triggers>
             </Style>
+            <!--  执行端口和输入输出端口的模板及其选择器  -->
+            <DataTemplate x:Key="SwitchOutputConnectorTemplate" DataType="{x:Type sysNodes:SwitchFlowNodeOutputConnector}">
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <ComboBox ItemsSource="{Binding Source={StaticResource SwitchRuleTypeEnum}}" SelectedValue="{Binding SwitchViewModel.Type, Mode=TwoWay}" />
+                    <TextBox
+                        MinWidth="100"
+                        MaxWidth="120"
+                        Text="{Binding SwitchViewModel.Value, Mode=TwoWay}" />
+                    <nodify:NodeOutput
+                        VerticalAlignment="Center"
+                        Anchor="{Binding Anchor, Mode=OneWayToSource}"
+                        ToolTip="{Binding SwitchViewModel.Type, Converter={shared:EnumValuesConverter}}" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="ExecutionConnectorTemplate" DataType="{x:Type local:ExecutionConnector}">
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <nodify:NodeOutput VerticalAlignment="Center" Anchor="{Binding Anchor, Mode=OneWayToSource}" />
+                </StackPanel>
+            </DataTemplate>
+            <local:ConnectorTemplateSelector
+                x:Key="ConnectorTemplateSelector"
+                Type1Template="{StaticResource ExecutionConnectorTemplate}"
+                Type2Template="{StaticResource SwitchOutputConnectorTemplate}" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -304,12 +338,13 @@
                 <Style BasedOn="{StaticResource {x:Type nodify:Connector}}" TargetType="{x:Type nodify:Connector}">
                     <Setter Property="Anchor" Value="{Binding Anchor, Mode=OneWayToSource}" />
                     <Setter Property="IsConnected" Value="{Binding IsConnected}" />
+                    <Setter Property="ToolTip" Value="{Binding Value}" />
                 </Style>
                 <!--  注释节点的样式：自定义注释节点的HeaderTemplate，用于输入和显示注释内容  -->
                 <Style BasedOn="{StaticResource {x:Type nodify:GroupingNode}}" TargetType="{x:Type nodify:GroupingNode}">
                     <Setter Property="HeaderTemplate">
                         <Setter.Value>
-                            <DataTemplate DataType="{x:Type local:CommentNodeViewModel}">
+                            <DataTemplate DataType="{x:Type sysNodes:CommentNodeViewModel}">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Margin="0,5,0,5" Text="Comment" />
                                     <TextBox
@@ -336,10 +371,6 @@
                                     <DataTemplate DataType="{x:Type local:ConnectorViewModel}">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Margin="0,0,5,0" Text="{Binding Title}" />
-                                            <TextBox
-                                                MinWidth="30"
-                                                Text="{Binding MaxConnections}"
-                                                ToolTip="MaxConnections" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -356,11 +387,6 @@
                                                 Margin="0,0,5,0"
                                                 VerticalAlignment="Center"
                                                 Text="{Binding Title}" />
-                                            <ComboBox
-                                                DisplayMemberPath="Name"
-                                                ItemsSource="{Binding Shape, Converter={shared:EnumValuesConverter}}"
-                                                SelectedValue="{Binding Shape}"
-                                                SelectedValuePath="Value" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </Setter.Value>
@@ -377,6 +403,7 @@
                     <Setter Property="Header" Value="{Binding}" />
                     <Setter Property="Anchor" Value="{Binding Anchor, Mode=OneWayToSource}" />
                     <Setter Property="IsConnected" Value="{Binding IsConnected}" />
+                    <Setter Property="ToolTip" Value="{Binding Value}" />
                 </Style>
 
                 <Style BasedOn="{StaticResource {x:Type nodify:NodeOutput}}" TargetType="{x:Type nodify:NodeOutput}">
@@ -393,6 +420,7 @@
                     <Setter Property="Header" Value="{Binding Title}" />
                     <Setter Property="Anchor" Value="{Binding Anchor, Mode=OneWayToSource}" />
                     <Setter Property="IsConnected" Value="{Binding IsConnected}" />
+                    <Setter Property="ToolTip" Value="{Binding Value}" />
                 </Style>
 
                 <DataTemplate DataType="{x:Type local:FlowNodeViewModel}">
@@ -402,7 +430,7 @@
                         Output="{Binding Output}" />
                 </DataTemplate>
 
-                <DataTemplate DataType="{x:Type local:SubWorkflowViewModel}">
+                <DataTemplate DataType="{x:Type sysNodes:SubWorkflowViewModel}">
                     <DataTemplate.Resources>
                         <Style BasedOn="{StaticResource {x:Type nodify:NodeOutput}}" TargetType="{x:Type nodify:NodeOutput}">
                             <Setter Property="Header" Value="{Binding}" />
@@ -444,7 +472,7 @@
                     </nodify:Node>
                 </DataTemplate>
 
-                <DataTemplate DataType="{x:Type local:SubWorkflowInputNodeViewModel}">
+                <DataTemplate DataType="{x:Type sysNodes:SubWorkflowInputNodeViewModel}">
                     <DataTemplate.Resources>
                         <Style BasedOn="{StaticResource {x:Type nodify:NodeOutput}}" TargetType="{x:Type nodify:NodeOutput}">
                             <Setter Property="Header" Value="{Binding}" />
@@ -477,7 +505,7 @@
                 </DataTemplate>
 
 
-                <DataTemplate DataType="{x:Type local:SubWorkflowOutputNodeViewModel}">
+                <DataTemplate DataType="{x:Type sysNodes:SubWorkflowOutputNodeViewModel}">
                     <DataTemplate.Resources>
                         <Style BasedOn="{StaticResource {x:Type nodify:NodeInput}}" TargetType="{x:Type nodify:NodeInput}">
                             <Setter Property="Header" Value="{Binding}" />
@@ -509,11 +537,59 @@
                     </nodify:Node>
                 </DataTemplate>
 
-                <DataTemplate DataType="{x:Type local:KnotNodeViewModel}">
+                <DataTemplate DataType="{x:Type sysNodes:SwitchFlowNodeViewModel}">
+                    <DataTemplate.Resources>
+                        <Style BasedOn="{StaticResource {x:Type nodify:NodeInput}}" TargetType="{x:Type nodify:NodeInput}">
+                            <Setter Property="Header" Value="{Binding}" />
+                            <Setter Property="IsConnected" Value="{Binding IsConnected}" />
+                            <Setter Property="Anchor" Value="{Binding Anchor, Mode=OneWayToSource}" />
+                            <Setter Property="ToolTip" Value="{Binding Value}" />
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate DataType="{x:Type local:ExecutionConnector}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="5,0,0,0" Text="{Binding Title}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataTemplate.Resources>
+                    <nodify:Node
+                        VerticalContentAlignment="Top"
+                        Footer="{Binding}"
+                        Header="{Binding}"
+                        Input="{Binding Input}"
+                        Output="{Binding Output}">
+                        <StackPanel Orientation="Horizontal">
+                            <Button
+                                Command="{Binding AddOutputCommand}"
+                                Content="{StaticResource PlusIcon}"
+                                Style="{StaticResource IconButton}" />
+                            <Button
+                                Command="{Binding RemoveOutputCommand}"
+                                Content="{StaticResource RemoveKeyIcon}"
+                                Style="{StaticResource IconButton}" />
+                        </StackPanel>
+                        <nodify:Node.HeaderTemplate>
+                            <StaticResource ResourceKey="SharedHeaderTemplate" />
+                        </nodify:Node.HeaderTemplate>
+                        <nodify:Node.FooterTemplate>
+                            <StaticResource ResourceKey="SharedFooterTemplate" />
+                        </nodify:Node.FooterTemplate>
+                        <nodify:Node.OutputConnectorTemplate>
+                            <DataTemplate>
+                                <ContentPresenter Content="{Binding}" ContentTemplateSelector="{StaticResource ConnectorTemplateSelector}" />
+                            </DataTemplate>
+                        </nodify:Node.OutputConnectorTemplate>
+                    </nodify:Node>
+                </DataTemplate>
+
+                <DataTemplate DataType="{x:Type sysNodes:KnotNodeViewModel}">
                     <nodify:KnotNode Content="{Binding Connector}" />
                 </DataTemplate>
 
-                <DataTemplate DataType="{x:Type local:CommentNodeViewModel}">
+                <DataTemplate DataType="{x:Type sysNodes:CommentNodeViewModel}">
                     <nodify:GroupingNode
                         ActualSize="{Binding Size}"
                         Header="{Binding Title}"

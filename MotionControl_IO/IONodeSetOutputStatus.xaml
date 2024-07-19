@@ -1,0 +1,40 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:MotionControl_IO"
+    xmlns:nodify="https://miroiu.github.io/nodify"
+    xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared">
+
+
+    <DataTemplate DataType="{x:Type local:SetOutputStatusNode}">
+        <nodify:Node
+            Content="{Binding}"
+            Footer="{Binding}"
+            Header="{Binding}"
+            Input="{Binding Input}"
+            Output="{Binding Output}">
+            <nodify:Node.HeaderTemplate>
+                <StaticResource ResourceKey="SharedHeaderTemplate" />
+            </nodify:Node.HeaderTemplate>
+            <nodify:Node.FooterTemplate>
+                <StaticResource ResourceKey="SharedFooterTemplate" />
+            </nodify:Node.FooterTemplate>
+            <nodify:Node.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="选择IO端口：" />
+                        <ComboBox>
+                            <ComboBoxItem Content="1#治具真空" />
+                            <ComboBoxItem Content="2#产品真空" />
+                            <ComboBoxItem Content="Loading真空" />
+                        </ComboBox>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="是否等待高电平：" />
+                            <CheckBox IsChecked="{Binding IsOn}" />
+                        </StackPanel>
+                    </StackPanel>
+                </DataTemplate>
+            </nodify:Node.ContentTemplate>
+        </nodify:Node>
+    </DataTemplate>
+</ResourceDictionary>
