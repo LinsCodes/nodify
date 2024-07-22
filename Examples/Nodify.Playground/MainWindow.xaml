@@ -27,6 +27,17 @@
         <DataTemplate DataType="{x:Type local:NodifyEditorViewModel}">
             <local:NodifyEditorView />
         </DataTemplate>
+        <Style
+            x:Key="PropertyExpanderStyle"
+            BasedOn="{StaticResource {x:Type Expander}}"
+            TargetType="{x:Type Expander}">
+            <Setter Property="Tag" Value="{StaticResource ExpandRightIcon}" />
+            <Style.Triggers>
+                <Trigger Property="IsExpanded" Value="True">
+                    <Setter Property="Tag" Value="{StaticResource ExpandDownIcon}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
 
     <Window.DataContext>
@@ -87,11 +98,11 @@
                         Style="{StaticResource HollowButton}"
                         ToolTip="Load the Workflow" />
                     <Button
-                    Grid.Column="1"
-                    Command="{Binding Source={x:Static shared:ThemeManager.SetNextThemeCommand}}"
-                    Content="{StaticResource ThemeIcon}"
-                    Style="{StaticResource IconButton}"
-                    ToolTip="Change theme" />
+                        Grid.Column="1"
+                        Command="{Binding Source={x:Static shared:ThemeManager.SetNextThemeCommand}}"
+                        Content="{StaticResource ThemeIcon}"
+                        Style="{StaticResource IconButton}"
+                        ToolTip="Change theme" />
                 </StackPanel>
             </Grid>
         </Border>
@@ -297,5 +308,159 @@
 
         </Grid>
 
+        <!--  Propertys  -->
+        <Expander
+            Grid.Row="1"
+            Padding="0,1,4,3"
+            HorizontalAlignment="Right"
+            HorizontalContentAlignment="Right"
+            VerticalContentAlignment="Center"
+            Background="{DynamicResource PanelBackgroundBrush}"
+            ExpandDirection="Left"
+            IsExpanded="True">
+            <Expander.Style>
+                <Style BasedOn="{StaticResource {x:Type Expander}}" TargetType="{x:Type Expander}">
+                    <Setter Property="Tag" Value="{StaticResource ExpandLeftIcon}" />
+                    <Style.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter Property="Tag" Value="{StaticResource ExpandRightIcon}" />
+                        </Trigger>
+                        <Trigger Property="IsExpanded" Value="False">
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="侧" />
+                                            <TextBlock Text="边" />
+                                            <TextBlock Text="栏" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Expander.Style>
+
+            <Border
+                Width="300"
+                Padding="10"
+                HorizontalAlignment="Stretch"
+                BorderBrush="{DynamicResource BackgroundBrush}"
+                BorderThickness="1">
+                <shared:TabControlEx>
+                    <shared:TabControlEx.ItemContainerStyle>
+                        <Style BasedOn="{StaticResource {x:Type shared:TabItemEx}}" TargetType="{x:Type shared:TabItemEx}" />
+                    </shared:TabControlEx.ItemContainerStyle>
+                    <shared:TabItemEx Header="Properties">
+                        <!--
+                            1.如果选择的节点数为0，显示工作流的属性，以及当前工作流的所有节点列表，变量列表；
+                            2.如果选择的节点数为1，显示该节点的属性，以及节点的帮助信息；
+                            3.如果选择了多个节点，显示工作流的属性，以及选中的节点
+                        -->
+                        <ContentControl x:Name="contentControl">
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Style.Triggers>
+                                        <!--  如果选择的节点数为0  -->
+                                        <DataTrigger Binding="{Binding SelectedEditor.SelectedNodes.Count}" Value="0">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <!--  工作流属性  -->
+                                                        <Expander
+                                                            Margin="0,5"
+                                                            Padding="0,5"
+                                                            VerticalContentAlignment="Top"
+                                                            Background="{DynamicResource PanelBackgroundBrush}"
+                                                            ExpandDirection="Down"
+                                                            Header="Workflow"
+                                                            IsExpanded="True"
+                                                            Style="{StaticResource PropertyExpanderStyle}">
+
+                                                            <StackPanel Orientation="Vertical">
+                                                                <DockPanel VerticalAlignment="Top">
+                                                                    <TextBlock
+                                                                        Margin="5"
+                                                                        DockPanel.Dock="Left"
+                                                                        Text="Name:" />
+                                                                    <TextBox DockPanel.Dock="Right" Text="{Binding SelectedEditor.Title, Mode=TwoWay}" />
+                                                                </DockPanel>
+                                                            </StackPanel>
+                                                        </Expander>
+                                                        <!--  工作流节点列表  -->
+                                                        <Expander
+                                                            Margin="0,5"
+                                                            Padding="0,5"
+                                                            VerticalContentAlignment="Top"
+                                                            Background="{DynamicResource PanelBackgroundBrush}"
+                                                            ExpandDirection="Down"
+                                                            Header="Nodes"
+                                                            IsExpanded="True"
+                                                            Style="{StaticResource PropertyExpanderStyle}">
+
+                                                            <StackPanel Orientation="Vertical">
+                                                                <ListBox
+                                                                    Margin="0,10"
+                                                                    Background="Transparent"
+                                                                    ItemsSource="{Binding SelectedEditor.Nodes}">
+                                                                    <ListBox.ItemTemplate>
+                                                                        <DataTemplate DataType="local:NodeViewModel">
+                                                                            <StackPanel>
+                                                                                <TextBox IsEnabled="False" Text="{Binding Title}" />
+                                                                            </StackPanel>
+                                                                        </DataTemplate>
+                                                                    </ListBox.ItemTemplate>
+                                                                </ListBox>
+                                                            </StackPanel>
+                                                        </Expander>
+                                                       
+                                                    </StackPanel>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <!--  如果选择的节点数为1  -->
+                                        <DataTrigger Binding="{Binding SelectedEditor.SelectedNodes.Count}" Value="1">
+                                            <Setter Property="Content">
+                                                <Setter.Value>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <DockPanel VerticalAlignment="Top">
+                                                            <TextBlock
+                                                                Margin="5"
+                                                                DockPanel.Dock="Left"
+                                                                Text="Name:" />
+                                                            <TextBlock
+                                                                Margin="5"
+                                                                DockPanel.Dock="Left"
+                                                                Text="{Binding SelectedEditor.SelectedNodes[0].Title}" />
+                                                        </DockPanel>
+                                                        <!--  节点自定义属性页面  -->
+                                                        <Expander
+                                                            Margin="0,5"
+                                                            Padding="0,5"
+                                                            VerticalContentAlignment="Top"
+                                                            Background="{DynamicResource PanelBackgroundBrush}"
+                                                            ExpandDirection="Down"
+                                                            Header="其他"
+                                                            IsExpanded="True"
+                                                            Style="{StaticResource PropertyExpanderStyle}">
+
+                                                            <!--  Todo：每个节点（NodeViewModel）实现了自己View  这里如何展示出来  -->
+                                                            <ContentControl Content="{Binding SelectedEditor.SelectedNodes[0]}" 
+                                                                            ContentTemplate="{DynamicResource NodeViewTemplate}" />
+                                                        </Expander>
+                                                    </StackPanel>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </shared:TabItemEx>
+                </shared:TabControlEx>
+
+            </Border>
+        </Expander>
     </Grid>
 </Window>
