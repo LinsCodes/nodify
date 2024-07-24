@@ -2,13 +2,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:DelayNode"
-    xmlns:nodify="https://miroiu.github.io/nodify"
-    xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared">
+    xmlns:nodify="https://miroiu.github.io/nodify">
 
-    <!--  定义每个节点的视图模板  -->
-    <DataTemplate x:Key="NodeViewTemplate" DataType="{x:Type local:DelayNodeViewModel}">
-        <local:PropertySettings DataContext="{Binding}" />
+    <!--  定义节点的属性模板  -->
+    <DataTemplate DataType="{x:Type local:PropertySettingsViewModel}">
+        <local:PropertySettings DataContext="{Binding Node}" />
     </DataTemplate>
+    <!--  定义节点的视图模板  -->
     <DataTemplate DataType="{x:Type local:DelayNodeViewModel}">
         <nodify:Node
             Content="{Binding}"

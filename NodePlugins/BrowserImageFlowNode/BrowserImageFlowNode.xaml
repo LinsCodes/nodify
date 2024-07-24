@@ -3,13 +3,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:BrowserImageFlowNode"
     xmlns:nodify="https://miroiu.github.io/nodify"
+    xmlns:playground="clr-namespace:Nodify.Playground;assembly=Nodify.Playground"
     xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared">
 
-
+    <!--  定义节点的属性模板  -->
+    <DataTemplate DataType="{x:Type local:PropertySettingsViewModel}">
+        <local:PropertySettings DataContext="{Binding Node}" />
+    </DataTemplate>
+    <!--  定义节点的视图模板  -->
     <DataTemplate DataType="{x:Type local:BrowserImageFlowNodeViewModel}">
         <nodify:Node
             Content="{Binding}"
-            Header="{Binding }"
+            Header="{Binding}"
             Input="{Binding Input}"
             Output="{Binding Output}">
             <nodify:Node.HeaderTemplate>
@@ -29,7 +34,7 @@
                                 Content="{StaticResource EditIcon}"
                                 Style="{StaticResource IconButton}" />
                         </StackPanel>
-                        <Image MaxWidth="200" Source="{Binding PicPath}"/>
+                        <Image MaxWidth="200" Source="{Binding PicPath}" />
                     </StackPanel>
                 </DataTemplate>
             </nodify:Node.ContentTemplate>

@@ -1,12 +1,16 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:MotionControl_IO"
+    xmlns:local="clr-namespace:MotionControl_Axis"
     xmlns:nodify="https://miroiu.github.io/nodify"
-    xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared">
+    xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-
-    <DataTemplate DataType="{x:Type local:KeepIOStatusNode}">
+    <!--  定义节点的属性模板  -->
+    <DataTemplate DataType="{x:Type local:PropertySettingsViewModel}">
+        <local:PropertySettings DataContext="{Binding Node}" />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type local:AxesMoveNode}">
         <nodify:Node
             Content="{Binding}"
             Footer="{Binding}"
@@ -20,16 +24,7 @@
                 <StaticResource ResourceKey="SharedFooterTemplate" />
             </nodify:Node.FooterTemplate>
             <nodify:Node.ContentTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical">
-                        <TextBlock Text="选择IO端口：" />
-                        <ComboBox>
-                            <ComboBoxItem Content="1#治具真空" />
-                            <ComboBoxItem Content="2#产品真空" />
-                            <ComboBoxItem Content="Loading真空" />
-                        </ComboBox>
-                    </StackPanel>
-                </DataTemplate>
+                <DataTemplate />
             </nodify:Node.ContentTemplate>
         </nodify:Node>
     </DataTemplate>

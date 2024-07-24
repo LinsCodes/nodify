@@ -1,16 +1,15 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:SetVariable"
+    xmlns:local="clr-namespace:MotionControl_IO"
     xmlns:nodify="https://miroiu.github.io/nodify"
-    xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared">
 
     <!--  定义节点的属性模板  -->
-    <DataTemplate DataType="{x:Type local:PropertySettingsViewModel}">
-        <local:PropertySettings DataContext="{Binding Node}" />
+    <DataTemplate DataType="{x:Type local:GetStatusPropertySettingsViewModel}">
+        <local:GetStatusPropertySettings DataContext="{Binding Node}" />
     </DataTemplate>
-    <DataTemplate DataType="{x:Type local:SetVariableNodeViewModel}">
+    <DataTemplate DataType="{x:Type local:GetStatusNode}">
         <nodify:Node
             Content="{Binding}"
             Footer="{Binding}"
@@ -26,18 +25,12 @@
             <nodify:Node.ContentTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
-                        <ComboBox
-                            Width="100"
-                            DisplayMemberPath="Title"
-                            ItemsSource="{Binding Graph.EditorManager.Editors}"
-                            SelectedItem="{Binding Editor, Mode=OneWayToSource}" />
-                        <ComboBox
-                            Width="100"
-                            DisplayMemberPath="Name"
-                            ItemsSource="{Binding Editor.Variables}"
-                            SelectedItem="{Binding SelectedVariable, Mode=OneWayToSource}" />
-                        <TextBox Width="100" Text="{Binding StrValue, Mode=TwoWay}" />
-
+                        <TextBlock Text="选择IO端口：" />
+                        <ComboBox>
+                            <ComboBoxItem Content="1#治具真空" />
+                            <ComboBoxItem Content="2#产品真空" />
+                            <ComboBoxItem Content="Loading真空" />
+                        </ComboBox>
                     </StackPanel>
                 </DataTemplate>
             </nodify:Node.ContentTemplate>

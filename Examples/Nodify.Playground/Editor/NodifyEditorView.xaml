@@ -244,7 +244,7 @@
             MaxViewportZoom="{Binding MaxZoom, Source={x:Static local:EditorSettings.Instance}}"
             MinViewportZoom="{Binding MinZoom, Source={x:Static local:EditorSettings.Instance}}"
             PendingConnection="{Binding PendingConnection}"
-            SelectedItems="{Binding SelectedNodes}"
+            SelectedItems="{Binding SelectedNodes, Mode=TwoWay}"
             SelectionRectangleStyle="{StaticResource SelectionRectangleStyle}"
             ViewportLocation="{Binding Location.Value, Source={x:Static local:EditorSettings.Instance}}"
             ViewportSize="{Binding ViewportSize, Mode=OneWayToSource}"

@@ -54,6 +54,15 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PropertySettings\WaitStatusPropertySettings.xaml.cs">
+      <DependentUpon>WaitStatusPropertySettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertySettings\ToggleOutputStatus.xaml.cs">
+      <DependentUpon>ToggleOutputStatus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertySettings\SetOutputStatusPropertySettings.xaml.cs">
+      <DependentUpon>SetOutputStatusPropertySettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MotionControl_IoNodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -68,6 +77,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PropertySettings\GetStatusPropertySettings.xaml.cs">
+      <DependentUpon>GetStatusPropertySettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertySettings\KeepStatusPropertySettings.xaml.cs">
+      <DependentUpon>KeepStatusPropertySettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertySettingsViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -95,23 +111,43 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="IONodeToggleOutputStatus.xaml">
+    <Page Include="PropertySettings\WaitStatusPropertySettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="IONodeKeepStatus.xaml">
+    <Page Include="PropertySettings\ToggleOutputStatus.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="IONodeSetOutputStatus.xaml">
+    <Page Include="PropertySettings\SetOutputStatusPropertySettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="IONodeWaitStatus.xaml">
+    <Page Include="Template\IONodeToggleOutputStatus.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="IONodeGetStatus.xaml">
+    <Page Include="Template\IONodeKeepStatus.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Template\IONodeSetOutputStatus.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Template\IONodeWaitStatus.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Template\IONodeGetStatus.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertySettings\GetStatusPropertySettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertySettings\KeepStatusPropertySettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

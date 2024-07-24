@@ -6,7 +6,10 @@
     xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-
+    <!--  定义节点的属性模板  -->
+    <DataTemplate DataType="{x:Type local:PropertySettingsViewModel}">
+        <local:PropertySettings DataContext="{Binding Node}" />
+    </DataTemplate>
     <DataTemplate DataType="{x:Type local:VariableDefineNodeViewModel}">
         <nodify:Node Content="{Binding}" Header="{Binding Title}">
             <nodify:Node.ContentTemplate>

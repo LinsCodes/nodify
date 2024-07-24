@@ -5,7 +5,10 @@
     xmlns:nodify="https://miroiu.github.io/nodify"
     xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared">
 
-
+    <!--  定义节点的属性模板  -->
+    <DataTemplate DataType="{x:Type local:WaitStatusPropertySettingsViewModel}">
+        <local:WaitStatusPropertySettings DataContext="{Binding Node}" />
+    </DataTemplate>
     <DataTemplate DataType="{x:Type local:WaitIOStatusNode}">
         <nodify:Node
             Content="{Binding}"

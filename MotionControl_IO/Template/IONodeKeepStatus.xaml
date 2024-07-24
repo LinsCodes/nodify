@@ -5,8 +5,11 @@
     xmlns:nodify="https://miroiu.github.io/nodify"
     xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared">
 
-
-    <DataTemplate DataType="{x:Type local:ToggleOutputStatusNode}">
+    <!--  定义节点的属性模板  -->
+    <DataTemplate DataType="{x:Type local:KeepStatusPropertySettingsViewModel}">
+        <local:KeepStatusPropertySettings DataContext="{Binding Node}" />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type local:KeepIOStatusNode}">
         <nodify:Node
             Content="{Binding}"
             Footer="{Binding}"

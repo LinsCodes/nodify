@@ -446,8 +446,7 @@
                                                             Style="{StaticResource PropertyExpanderStyle}">
 
                                                             <!--  Todo：每个节点（NodeViewModel）实现了自己View  这里如何展示出来  -->
-                                                            <ContentControl Content="{Binding SelectedEditor.SelectedNodes[0]}" 
-                                                                            ContentTemplate="{DynamicResource NodeViewTemplate}" />
+                                                            <ContentControl Content="{Binding SelectedEditor.SelectedNodes[0].PropertyView}"> </ContentControl>
                                                         </Expander>
                                                     </StackPanel>
                                                 </Setter.Value>

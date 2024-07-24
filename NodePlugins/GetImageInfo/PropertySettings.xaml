@@ -1,0 +1,19 @@
+﻿<UserControl
+    x:Class="GetImageInfo.PropertySettings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:GetImageInfo"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared"
+    d:DataContext="{d:DesignInstance local:GetImageInfoViewModel}"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Left" Text="名称：" />
+                <TextBox DockPanel.Dock="Right" Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>
