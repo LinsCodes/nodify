@@ -206,13 +206,13 @@
                         Text="{Binding SwitchViewModel.Value, Mode=TwoWay}" />
                     <nodify:NodeOutput
                         VerticalAlignment="Center"
-                        Anchor="{Binding Anchor, Mode=OneWayToSource}"
+                        Anchor="{Binding Anchor, Mode=TwoWay}"
                         ToolTip="{Binding SwitchViewModel.Type, Converter={shared:EnumValuesConverter}}" />
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="ExecutionConnectorTemplate" DataType="{x:Type local:ExecutionConnector}">
                 <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                    <nodify:NodeOutput VerticalAlignment="Center" Anchor="{Binding Anchor, Mode=OneWayToSource}" />
+                    <nodify:NodeOutput VerticalAlignment="Center" Anchor="{Binding Anchor, Mode=TwoWay}" />
                 </StackPanel>
             </DataTemplate>
             <local:ConnectorTemplateSelector
@@ -273,68 +273,6 @@
             </nodify:NodifyEditor.InputBindings>
 
             <nodify:NodifyEditor.Resources>
-                <!--<Style BasedOn="{StaticResource {x:Type nodify:PendingConnection}}" TargetType="{x:Type nodify:PendingConnection}">
-                    <Setter Property="CompletedCommand" Value="{Binding Graph.CreateConnectionCommand}" />
-                    <Setter Property="Source" Value="{Binding Source, Mode=OneWayToSource}" />
-                    <Setter Property="Target" Value="{Binding PreviewTarget, Mode=OneWayToSource}" />
-                    <Setter Property="PreviewTarget" Value="{Binding PreviewTarget, Mode=OneWayToSource}" />
-                    <Setter Property="Content" Value="{Binding PreviewText}" />
-                    <Setter Property="EnablePreview" Value="{Binding EnablePendingConnectionPreview, Source={x:Static local:EditorSettings.Instance}}" />
-                    <Setter Property="EnableSnapping" Value="{Binding EnablePendingConnectionSnapping, Source={x:Static local:EditorSettings.Instance}}" />
-                    <Setter Property="AllowOnlyConnectors" Value="{Binding AllowConnectingToConnectorsOnly, Source={x:Static local:EditorSettings.Instance}}" />
-                    <Setter Property="Direction" Value="{Binding Source.Flow, Converter={StaticResource FlowToDirectionConverter}}" />
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="{x:Type nodify:PendingConnection}">
-                                <Canvas>
-                                    <nodify:Connection
-                                        ArrowEnds="{Binding ArrowHeadEnds, Source={x:Static local:EditorSettings.Instance}}"
-                                        ArrowShape="{Binding ArrowHeadShape, Source={x:Static local:EditorSettings.Instance}}"
-                                        ArrowSize="{Binding ConnectionArrowSize.Size, Source={x:Static local:EditorSettings.Instance}}"
-                                        Direction="{TemplateBinding Direction}"
-                                        Source="{TemplateBinding SourceAnchor}"
-                                        SourceOffset="{Binding ConnectionSourceOffset.Size, Source={x:Static local:EditorSettings.Instance}}"
-                                        SourceOffsetMode="{Binding ConnectionSourceOffsetMode, Source={x:Static local:EditorSettings.Instance}}"
-                                        Spacing="{Binding ConnectionSpacing, Source={x:Static local:EditorSettings.Instance}}"
-                                        StrokeThickness="{TemplateBinding StrokeThickness}"
-                                        Target="{TemplateBinding TargetAnchor}"
-                                        TargetOffset="{Binding ConnectionTargetOffset.Size, Source={x:Static local:EditorSettings.Instance}}"
-                                        TargetOffsetMode="None">
-                                        <nodify:Connection.Style>
-                                            <Style BasedOn="{StaticResource {x:Type nodify:Connection}}" TargetType="nodify:Connection">
-                                                <Setter Property="Stroke" Value="{DynamicResource Connection.StrokeBrush}" />
-                                                <Setter Property="Fill" Value="{DynamicResource Connection.StrokeBrush}" />
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding Source.Shape}" Value="{x:Static local:ConnectorShape.Square}">
-                                                        <Setter Property="Stroke" Value="{StaticResource SquareConnectorColor}" />
-                                                        <Setter Property="Fill" Value="{StaticResource SquareConnectorColor}" />
-                                                    </DataTrigger>
-                                                    <DataTrigger Binding="{Binding Source.Shape}" Value="{x:Static local:ConnectorShape.Triangle}">
-                                                        <Setter Property="Stroke" Value="{StaticResource TriangleConnectorColor}" />
-                                                        <Setter Property="Fill" Value="{StaticResource TriangleConnectorColor}" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </nodify:Connection.Style>
-                                    </nodify:Connection>
-                                    <Border
-                                        Canvas.Left="{Binding TargetAnchor.X, RelativeSource={RelativeSource TemplatedParent}}"
-                                        Canvas.Top="{Binding TargetAnchor.Y, RelativeSource={RelativeSource TemplatedParent}}"
-                                        Margin="15"
-                                        Padding="{TemplateBinding Padding}"
-                                        Background="{TemplateBinding Background}"
-                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                        CornerRadius="3"
-                                        Visibility="{Binding PreviewText, Converter={shared:StringToVisibilityConverter}}">
-                                        <ContentPresenter />
-                                    </Border>
-                                </Canvas>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>-->
-
                 <Style BasedOn="{StaticResource {x:Type nodify:Connector}}" TargetType="{x:Type nodify:Connector}">
                     <Setter Property="Anchor" Value="{Binding Anchor, Mode=OneWayToSource}" />
                     <Setter Property="IsConnected" Value="{Binding IsConnected}" />
@@ -596,7 +534,19 @@
                         MovementMode="{Binding GroupingNodeMovement, Mode=TwoWay, Source={x:Static local:EditorSettings.Instance}}" />
                 </DataTemplate>
 
-
+                <DataTemplate DataType="{x:Type sysNodes:StartNodeViewModel}">
+                    <nodify:Node
+                        Footer="{Binding}"
+                        Header="{Binding}"
+                        Output="{Binding Output}">
+                        <nodify:Node.HeaderTemplate>
+                            <StaticResource ResourceKey="SharedHeaderTemplate" />
+                        </nodify:Node.HeaderTemplate>
+                        <nodify:Node.FooterTemplate>
+                            <StaticResource ResourceKey="SharedFooterTemplate" />
+                        </nodify:Node.FooterTemplate>
+                    </nodify:Node>
+                </DataTemplate>
             </nodify:NodifyEditor.Resources>
 
             <nodify:NodifyEditor.ItemContainerStyle>

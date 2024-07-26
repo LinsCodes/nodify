@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net48;net472</TargetFrameworks>
+    <TargetFrameworks>net48;</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(TargetFramework)'=='net472' OR '$(TargetFramework)'=='net48'">
+  <PropertyGroup Condition="'$(TargetFramework)'=='net48'">
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>

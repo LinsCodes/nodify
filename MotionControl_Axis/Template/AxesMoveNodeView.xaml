@@ -7,8 +7,8 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <!--  定义节点的属性模板  -->
-    <DataTemplate DataType="{x:Type local:PropertySettingsViewModel}">
-        <local:PropertySettings DataContext="{Binding Node}" />
+    <DataTemplate DataType="{x:Type local:AxesMoveNodePropertySettingsViewModel}">
+        <local:AxesMoveNodePropertySettings DataContext="{Binding Node}" />
     </DataTemplate>
     <DataTemplate DataType="{x:Type local:AxesMoveNode}">
         <nodify:Node

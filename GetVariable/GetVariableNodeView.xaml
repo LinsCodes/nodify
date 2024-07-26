@@ -24,17 +24,19 @@
             </nodify:Node.FooterTemplate>
             <nodify:Node.ContentTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
                         <ComboBox
                             Width="100"
                             DisplayMemberPath="Title"
+                            IsEditable="False"
                             ItemsSource="{Binding Graph.EditorManager.Editors}"
-                            SelectedItem="{Binding Editor, Mode=OneWayToSource}" />
+                            SelectedItem="{Binding Editor, Mode=TwoWay}" />
                         <ComboBox
                             Width="100"
                             DisplayMemberPath="Name"
+                            IsEditable="False"
                             ItemsSource="{Binding Editor.Variables}"
-                            SelectedValue="{Binding VariableName, Mode=OneWayToSource}"
+                            SelectedValue="{Binding VariableName, Mode=TwoWay}"
                             SelectedValuePath="Name" />
                     </StackPanel>
                 </DataTemplate>

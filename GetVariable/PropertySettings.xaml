@@ -14,20 +14,22 @@
                 <DockPanel Margin="5">
                     <TextBlock DockPanel.Dock="Left" Text="工作流：   " />
                     <ComboBox
+                        IsEditable="False"
                         MinWidth="100"
                         DisplayMemberPath="Title"
                         DockPanel.Dock="Right"
                         ItemsSource="{Binding Graph.EditorManager.Editors}"
-                        SelectedItem="{Binding Editor, Mode=OneWayToSource}" />
+                        SelectedItem="{Binding Editor, Mode=TwoWay}" />
                 </DockPanel>
                 <DockPanel Margin="5">
                     <TextBlock DockPanel.Dock="Left" Text="变量名称：" />
                     <ComboBox
+                        IsEditable="False"
                         MinWidth="100"
                         DisplayMemberPath="Name"
                         DockPanel.Dock="Right"
                         ItemsSource="{Binding Editor.Variables}"
-                        SelectedValue="{Binding VariableName, Mode=OneWayToSource}"
+                        SelectedValue="{Binding VariableName, Mode=TwoWay}"
                         SelectedValuePath="Name" />
                 </DockPanel>
             </StackPanel>

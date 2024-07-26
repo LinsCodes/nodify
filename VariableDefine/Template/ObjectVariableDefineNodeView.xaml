@@ -7,10 +7,10 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
     <!--  定义节点的属性模板  -->
-    <DataTemplate DataType="{x:Type local:PropertySettingsViewModel}">
-        <local:PropertySettings DataContext="{Binding Node}" />
+    <DataTemplate DataType="{x:Type local:ObjectVariableDefinePropertySettingsViewModel}">
+        <local:ObjectVariableDefinePropertySettings DataContext="{Binding Node}" />
     </DataTemplate>
-    <DataTemplate DataType="{x:Type local:VariableDefineNodeViewModel}">
+    <DataTemplate DataType="{x:Type local:ObjectVariableDefineNodeViewModel}">
         <nodify:Node Content="{Binding}" Header="{Binding Title}">
             <nodify:Node.ContentTemplate>
                 <DataTemplate>

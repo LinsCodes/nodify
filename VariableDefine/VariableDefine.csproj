@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -39,6 +39,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -68,15 +71,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="PropertySettings.xaml.cs">
-      <DependentUpon>PropertySettings.xaml</DependentUpon>
+    <Compile Include="PropertySettings\ObjectVariableDefinePropertySettings.xaml.cs">
+      <DependentUpon>ObjectVariableDefinePropertySettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertySettings\VariableDefinePropertySettings.xaml.cs">
+      <DependentUpon>VariableDefinePropertySettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="PropertySettingsViewModel.cs" />
+    <Compile Include="ObjectVariableDefineNodeViewModel.cs" />
     <Compile Include="VariableDefineNodeViewModel.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -100,11 +108,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="PropertySettings.xaml">
+    <Page Include="PropertySettings\ObjectVariableDefinePropertySettings.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="VariableDefineNodeView.xaml">
+    <Page Include="PropertySettings\VariableDefinePropertySettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Template\ObjectVariableDefineNodeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Template\VariableDefineNodeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

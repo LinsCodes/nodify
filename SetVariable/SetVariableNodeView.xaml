@@ -30,12 +30,16 @@
                             Width="100"
                             DisplayMemberPath="Title"
                             ItemsSource="{Binding Graph.EditorManager.Editors}"
-                            SelectedItem="{Binding Editor, Mode=OneWayToSource}" />
+                            SelectedItem="{Binding Editor, Mode=TwoWay}" />
                         <ComboBox
                             Width="100"
                             DisplayMemberPath="Name"
                             ItemsSource="{Binding Editor.Variables}"
-                            SelectedItem="{Binding SelectedVariable, Mode=OneWayToSource}" />
+                            SelectedItem="{Binding SelectedVariable, Mode=TwoWay}" />
+                        <DockPanel>
+                            <TextBlock Text="如果不存在，是否自动创建:" />
+                            <CheckBox IsChecked="{Binding IsAutoCreateIfNotExist, Mode=OneWayToSource}" />
+                        </DockPanel>
                         <TextBox Width="100" Text="{Binding StrValue, Mode=TwoWay}" />
 
                     </StackPanel>
