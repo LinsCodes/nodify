@@ -315,7 +315,7 @@
             HorizontalAlignment="Right"
             HorizontalContentAlignment="Right"
             VerticalContentAlignment="Center"
-            Background="{DynamicResource PanelBackgroundBrush}"
+            Background="{DynamicResource BackgroundBrush}"
             ExpandDirection="Left"
             IsExpanded="True">
             <Expander.Style>
@@ -346,7 +346,7 @@
                 Width="300"
                 Padding="10"
                 HorizontalAlignment="Stretch"
-                BorderBrush="{DynamicResource BackgroundBrush}"
+                BorderBrush="{DynamicResource HighlightedBackgroundBrush}"
                 BorderThickness="1">
                 <shared:TabControlEx>
                     <shared:TabControlEx.ItemContainerStyle>
@@ -372,7 +372,6 @@
                                                             Margin="0,5"
                                                             Padding="0,5"
                                                             VerticalContentAlignment="Top"
-                                                            Background="{DynamicResource PanelBackgroundBrush}"
                                                             ExpandDirection="Down"
                                                             Header="Workflow"
                                                             IsExpanded="True"
@@ -393,7 +392,6 @@
                                                             Margin="0,5"
                                                             Padding="0,5"
                                                             VerticalContentAlignment="Top"
-                                                            Background="{DynamicResource PanelBackgroundBrush}"
                                                             ExpandDirection="Down"
                                                             Header="Nodes"
                                                             IsExpanded="True"
@@ -414,7 +412,7 @@
                                                                 </ListBox>
                                                             </StackPanel>
                                                         </Expander>
-                                                       
+
                                                     </StackPanel>
                                                 </Setter.Value>
                                             </Setter>
@@ -446,7 +444,7 @@
                                                             Style="{StaticResource PropertyExpanderStyle}">
 
                                                             <!--  Todo：每个节点（NodeViewModel）实现了自己View  这里如何展示出来  -->
-                                                            <ContentControl Content="{Binding SelectedEditor.SelectedNodes[0].PropertyView}"> </ContentControl>
+                                                            <ContentControl Content="{Binding SelectedEditor.SelectedNodes[0].PropertyView}" />
                                                         </Expander>
                                                     </StackPanel>
                                                 </Setter.Value>
@@ -456,6 +454,52 @@
                                 </Style>
                             </ContentControl.Style>
                         </ContentControl>
+                    </shared:TabItemEx>
+                    <shared:TabItemEx Header="Variables">
+                        <ItemsControl ItemsSource="{Binding SelectedEditor.Variables}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type local:Variable}">
+                                    <StackPanel Orientation="Vertical">
+                                        <TextBlock
+                                            Margin="5"
+                                            FontSize="16"
+                                            Text="{Binding Name, StringFormat='{}{0} :'}" />
+                                        <TextBox
+                                            Margin="5,0"
+                                            AcceptsReturn="True"
+                                            Text="{Binding Value}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </shared:TabItemEx>
+                    <shared:TabItemEx Header="Logs">
+                        <ScrollViewer x:Name="LogsScrollViewer">
+                            <ItemsControl
+                                ItemsSource="{Binding Logger.Logs}"
+                                ScrollViewer.CanContentScroll="True"
+                                ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate DataType="{x:Type local:LogItem}">
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock
+                                                Margin="5"
+                                                Foreground="{DynamicResource DisabledForegroundBrush}"
+                                                Text="{Binding Timestamp, StringFormat='yyyy-MM-dd HH:mm:ss.fff'}" />
+                                            <TextBox
+                                                Margin="5,0"
+                                                FontSize="16"
+                                                Foreground="{DynamicResource ForegroundBrush}"
+                                                IsReadOnly="True"
+                                                Text="{Binding Message, Mode=OneWay}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
                     </shared:TabItemEx>
                 </shared:TabControlEx>
 

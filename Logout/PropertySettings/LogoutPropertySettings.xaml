@@ -1,0 +1,26 @@
+﻿<UserControl
+    x:Class="Logout.LogoutPropertySettings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Logout"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared"
+    d:DataContext="{d:DesignInstance local:LogoutNodeViewModel}"
+    mc:Ignorable="d">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <DockPanel>
+                <TextBlock Margin="5" Text=" Log Message：" />
+                <TextBox
+                    Margin="5"
+                    IsReadOnly="True"
+                    Text="{Binding LogMessage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    TextWrapping="Wrap" />
+            </DockPanel>
+
+            <CheckBox Margin="5" Content="Log to UI" />
+            <CheckBox Margin="5" Content="Log to file" />
+        </StackPanel>
+    </Grid>
+</UserControl>
