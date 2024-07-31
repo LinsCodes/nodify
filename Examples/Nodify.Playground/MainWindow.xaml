@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:Nodify.Playground"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:nodify="https://miroiu.github.io/nodify"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared"
     Title="MainWindow"
     Width="1200"
@@ -38,6 +39,15 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        
+        <ObjectDataProvider
+                x:Key="VariableScopeValues"
+                MethodName="GetValues"
+                ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:Scope" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
     </Window.Resources>
 
     <Window.DataContext>
@@ -456,46 +466,227 @@
                         </ContentControl>
                     </shared:TabItemEx>
                     <shared:TabItemEx Header="Variables">
-                        <ItemsControl ItemsSource="{Binding SelectedEditor.Variables}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate DataType="{x:Type local:Variable}">
+                        <StackPanel Orientation="Vertical">
+                            <Expander
+                                Margin="0,0,0,5"
+                                VerticalContentAlignment="Top"
+                                ExpandDirection="Down"
+                                Header="Add Variable"
+                                IsExpanded="True"
+                                Style="{StaticResource PropertyExpanderStyle}">
+                                <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock
-                                            Margin="5"
-                                            FontSize="16"
-                                            Text="{Binding Name, StringFormat='{}{0} :'}" />
-                                        <TextBox
-                                            Margin="5,0"
-                                            AcceptsReturn="True"
-                                            Text="{Binding Value}"
-                                            TextWrapping="Wrap" />
+                                        <DockPanel>
+                                            <TextBlock
+                                                Height="20"
+                                                Margin="5"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                DockPanel.Dock="left"
+                                                Text="Name" />
+                                            <TextBox
+                                                Width="200"
+                                                Margin="5,0"
+                                                DockPanel.Dock="Right"
+                                                HorizontalScrollBarVisibility="Auto"
+                                                Text="{Binding VariableManager.Instance.VariableName, UpdateSourceTrigger=PropertyChanged}"
+                                                VerticalScrollBarVisibility="Auto" />
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock
+                                                Margin="5,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                DockPanel.Dock="left"
+                                                Text="Value" />
+                                            <TextBox
+                                                Width="200"
+                                                Height="125"
+                                                Margin="5"
+                                                AcceptsReturn="True"
+                                                DockPanel.Dock="Right"
+                                                HorizontalScrollBarVisibility="Auto"
+                                                Text="{Binding VariableManager.Instance.VariableValue, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="Wrap"
+                                                VerticalScrollBarVisibility="Auto" />
+                                        </DockPanel>
                                     </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                                    <StackPanel Orientation="Vertical">
+                                        <DockPanel Margin="5">
+                                            <TextBlock
+                                                Margin="5,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                DockPanel.Dock="left"
+                                                Text="Scope:" />
+                                            <ComboBox x:Name="ScopeComboBox" 
+                                                      ItemsSource="{Binding Source={StaticResource VariableScopeValues}}"
+                                                      SelectedItem="{Binding VariableManager.Instance.VariableScope, UpdateSourceTrigger=PropertyChanged}">
+                                            </ComboBox>
+                                        </DockPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button
+                                                Width="120"
+                                                Margin="3"
+                                                HorizontalContentAlignment="Center"
+                                                Command="{Binding AddNumberCommand}"
+                                                CommandParameter="{Binding SelectedItem, ElementName=ScopeComboBox}"
+                                                Content="Add Number"
+                                                Style="{StaticResource HollowButton}" />
+                                            <Button
+                                                Width="120"
+                                                Margin="3"
+                                                Command="{Binding AddStringCommand}"
+                                                CommandParameter="{Binding SelectedItem, ElementName=ScopeComboBox}"
+                                                Content="Add String"
+                                                Style="{StaticResource HollowButton}" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <Button
+                                                Width="120"
+                                                Margin="3"
+                                                Command="{Binding AddBooleanCommand}"
+                                                CommandParameter="{Binding SelectedItem, ElementName=ScopeComboBox}"
+                                                Content="Add Boolean"
+                                                Style="{StaticResource HollowButton}" />
+                                            <Button
+                                                Width="120"
+                                                Margin="3"
+                                                Command="{Binding AddJsonObjectCommand}"
+                                                CommandParameter="{Binding SelectedItem, ElementName=ScopeComboBox}"
+                                                Content="Add Json Object"
+                                                Style="{StaticResource HollowButton}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Expander>
+                            <Expander
+                                Margin="0,5,0,5"
+                                VerticalContentAlignment="Top"
+                                ExpandDirection="Down"
+                                Header="Workflow Variable"
+                                IsExpanded="True"
+                                Style="{StaticResource PropertyExpanderStyle}">
+                                <ItemsControl ItemsSource="{Binding SelectedEditor.Variables}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type local:Variable}">
+                                            <Expander
+                                                Margin="20,0,0,0"
+                                                VerticalContentAlignment="Top"
+                                                ExpandDirection="Down"
+                                                Header="{Binding}"
+                                                IsExpanded="True"
+                                                Style="{StaticResource PropertyExpanderStyle}">
+                                                <Expander.HeaderTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Margin="5,2"
+                                                                VerticalAlignment="Center"
+                                                                FontSize="14"
+                                                                Text="{Binding Name}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </Expander.HeaderTemplate>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBox
+                                                        Margin="5"
+                                                        AcceptsReturn="True"
+                                                        Text="{Binding Value}"
+                                                        TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </Expander>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Expander>
+                            <Expander
+                                Margin="0,5,0,5"
+                                VerticalContentAlignment="Top"
+                                ExpandDirection="Down"
+                                Header="Global Variable"
+                                IsExpanded="True"
+                                Style="{StaticResource PropertyExpanderStyle}">
+                                <ItemsControl ItemsSource="{Binding Variables}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type local:Variable}">
+                                            <Expander
+                                                Margin="20,0,0,0"
+                                                VerticalContentAlignment="Top"
+                                                ExpandDirection="Down"
+                                                Header="{Binding}"
+                                                IsExpanded="True"
+                                                Style="{StaticResource PropertyExpanderStyle}">
+                                                <Expander.HeaderTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Margin="5,2"
+                                                                VerticalAlignment="Center"
+                                                                FontSize="14"
+                                                                Text="{Binding Name}" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </Expander.HeaderTemplate>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBox
+                                                        Margin="5"
+                                                        AcceptsReturn="True"
+                                                        Text="{Binding Value}"
+                                                        TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </Expander>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Expander>
+                        </StackPanel>
                     </shared:TabItemEx>
                     <shared:TabItemEx Header="Logs">
-                        <ScrollViewer x:Name="LogsScrollViewer">
-                            <ItemsControl
-                                ItemsSource="{Binding Logger.Logs}"
-                                ScrollViewer.CanContentScroll="True"
-                                ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                                ScrollViewer.VerticalScrollBarVisibility="Visible">
+                        <ScrollViewer>
+                            <ItemsControl ItemsSource="{Binding Logger.Logs}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type local:LogItem}">
-                                        <StackPanel Orientation="Vertical">
-                                            <TextBlock
-                                                Margin="5"
-                                                Foreground="{DynamicResource DisabledForegroundBrush}"
-                                                Text="{Binding Timestamp, StringFormat='yyyy-MM-dd HH:mm:ss.fff'}" />
-                                            <TextBox
-                                                Margin="5,0"
-                                                FontSize="16"
-                                                Foreground="{DynamicResource ForegroundBrush}"
-                                                IsReadOnly="True"
-                                                Text="{Binding Message, Mode=OneWay}"
-                                                TextWrapping="Wrap" />
-                                        </StackPanel>
+                                        <Expander
+                                            Margin="0,0,0,5"
+                                            VerticalContentAlignment="Top"
+                                            ExpandDirection="Down"
+                                            Header="{Binding}"
+                                            IsExpanded="True"
+                                            Style="{StaticResource PropertyExpanderStyle}">
+                                            <Expander.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Button
+                                                            HorizontalContentAlignment="Center"
+                                                            VerticalContentAlignment="Center"
+                                                            Content="{StaticResource ThemeIcon}"
+                                                            IsEnabled="False"
+                                                            Style="{StaticResource IconButton}"
+                                                            ToolTip="Change theme" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            Foreground="{DynamicResource DisabledForegroundBrush}"
+                                                            Text="{Binding LogLevel, StringFormat={}{0}}" />
+                                                        <TextBlock
+                                                            VerticalAlignment="Center"
+                                                            Foreground="{DynamicResource DisabledForegroundBrush}"
+                                                            Text="{Binding Timestamp, StringFormat='yyyy-MM-dd HH:mm:ss.fff'}" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </Expander.HeaderTemplate>
+                                            <StackPanel Orientation="Vertical">
+                                                <TextBox
+                                                    MaxWidth="300"
+                                                    Margin="5"
+                                                    Foreground="{DynamicResource ForegroundBrush}"
+                                                    IsReadOnly="True"
+                                                    Text="{Binding Message, Mode=OneWay}"
+                                                    TextWrapping="Wrap" />
+                                            </StackPanel>
+                                        </Expander>
+
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
