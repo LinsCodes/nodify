@@ -6,8 +6,8 @@
     xmlns:local="clr-namespace:Nodify.Playground"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:nodify="https://miroiu.github.io/nodify"
-    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:shared="clr-namespace:Nodify;assembly=Nodify.Shared"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Title="MainWindow"
     Width="1200"
     Height="600"
@@ -39,15 +39,21 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
         <ObjectDataProvider
-                x:Key="VariableScopeValues"
-                MethodName="GetValues"
-                ObjectType="{x:Type sys:Enum}">
+            x:Key="VariableScopeValues"
+            MethodName="GetValues"
+            ObjectType="{x:Type sys:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="local:Scope" />
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
+
+        <CollectionViewSource x:Key="GroupedVariables" Source="{Binding AvailableVariables}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="Scope" />
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
     </Window.Resources>
 
     <Window.DataContext>
@@ -519,10 +525,10 @@
                                                 VerticalAlignment="Center"
                                                 DockPanel.Dock="left"
                                                 Text="Scope:" />
-                                            <ComboBox x:Name="ScopeComboBox" 
-                                                      ItemsSource="{Binding Source={StaticResource VariableScopeValues}}"
-                                                      SelectedItem="{Binding VariableManager.Instance.VariableScope, UpdateSourceTrigger=PropertyChanged}">
-                                            </ComboBox>
+                                            <ComboBox
+                                                x:Name="ScopeComboBox"
+                                                ItemsSource="{Binding Source={StaticResource VariableScopeValues}}"
+                                                SelectedItem="{Binding VariableManager.Instance.VariableScope, UpdateSourceTrigger=PropertyChanged}" />
                                         </DockPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <Button
@@ -565,14 +571,14 @@
                                 Margin="0,5,0,5"
                                 VerticalContentAlignment="Top"
                                 ExpandDirection="Down"
-                                Header="Workflow Variable"
+                                Header="Variables"
                                 IsExpanded="True"
                                 Style="{StaticResource PropertyExpanderStyle}">
-                                <ItemsControl ItemsSource="{Binding SelectedEditor.Variables}">
+                                <ItemsControl Margin="20,5,0,0" ItemsSource="{Binding Source={StaticResource GroupedVariables}}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate DataType="{x:Type local:Variable}">
                                             <Expander
-                                                Margin="20,0,0,0"
+                                                Margin="0,0,0,0"
                                                 VerticalContentAlignment="Top"
                                                 ExpandDirection="Down"
                                                 Header="{Binding}"
@@ -585,13 +591,22 @@
                                                                 Margin="5,2"
                                                                 VerticalAlignment="Center"
                                                                 FontSize="14"
-                                                                Text="{Binding Name}" />
+                                                                Text="{Binding Name}"
+                                                                ToolTip="{Binding Value}" />
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </Expander.HeaderTemplate>
                                                 <StackPanel Orientation="Vertical">
+                                                    <TextBlock Text="Getter"
+                                                               Tag="Getter"
+                                                        MouseMove="OnNodeDrag">
+                                                    </TextBlock>
+                                                    <TextBlock Text="Setter"
+                                                               Tag="Setter"
+                                                        MouseMove="OnNodeDrag">
+                                                    </TextBlock>
                                                     <TextBox
-                                                        Margin="5"
+                                                        Margin="20,5,5,5"
                                                         AcceptsReturn="True"
                                                         Text="{Binding Value}"
                                                         TextWrapping="Wrap" />
@@ -599,46 +614,15 @@
                                             </Expander>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                            </Expander>
-                            <Expander
-                                Margin="0,5,0,5"
-                                VerticalContentAlignment="Top"
-                                ExpandDirection="Down"
-                                Header="Global Variable"
-                                IsExpanded="True"
-                                Style="{StaticResource PropertyExpanderStyle}">
-                                <ItemsControl ItemsSource="{Binding Variables}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate DataType="{x:Type local:Variable}">
-                                            <Expander
-                                                Margin="20,0,0,0"
-                                                VerticalContentAlignment="Top"
-                                                ExpandDirection="Down"
-                                                Header="{Binding}"
-                                                IsExpanded="True"
-                                                Style="{StaticResource PropertyExpanderStyle}">
-                                                <Expander.HeaderTemplate>
-                                                    <DataTemplate>
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <TextBlock
-                                                                Margin="5,2"
-                                                                VerticalAlignment="Center"
-                                                                FontSize="14"
-                                                                Text="{Binding Name}" />
-                                                        </StackPanel>
-                                                    </DataTemplate>
-                                                </Expander.HeaderTemplate>
-                                                <StackPanel Orientation="Vertical">
-                                                    <TextBox
-                                                        Margin="5"
-                                                        AcceptsReturn="True"
-                                                        Text="{Binding Value}"
-                                                        TextWrapping="Wrap" />
-                                                </StackPanel>
-                                            </Expander>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
+                                    <ItemsControl.GroupStyle>
+                                        <GroupStyle>
+                                            <GroupStyle.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Name}" />
+                                                </DataTemplate>
+                                            </GroupStyle.HeaderTemplate>
+                                        </GroupStyle>
+                                    </ItemsControl.GroupStyle>
                                 </ItemsControl>
                             </Expander>
                         </StackPanel>

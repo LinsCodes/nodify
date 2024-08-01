@@ -35,7 +35,7 @@
                             Width="100"
                             DisplayMemberPath="Name"
                             IsEditable="False"
-                            ItemsSource="{Binding Editor.Variables}"
+                            ItemsSource="{Binding Editor.EditorManager.AvailableVariables}"
                             SelectedValue="{Binding VariableName, Mode=TwoWay}"
                             SelectedValuePath="Name" />
                     </StackPanel>
